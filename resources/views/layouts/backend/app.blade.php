@@ -18,6 +18,7 @@
         href="{{ asset('backend') }}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('backend') }}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    @stack('css')
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('backend') }}/dist/css/adminlte.min.css">
     <!-- overlayScrollbars -->
@@ -61,6 +62,7 @@
     <script src="{{ asset('backend') }}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- overlayScrollbars -->
     <script src="{{ asset('backend') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    @stack('js')
     <!-- AdminLTE App -->
     <script src="{{ asset('backend') }}/dist/js/adminlte.js"></script>
 </body>
