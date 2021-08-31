@@ -30,7 +30,8 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="" method="POST">
+                <form action="{{route('admin.category.store')}}" method="POST">
+                    @csrf
                     <div class="card-body">
                         <div class="form-group">
                             <label for="CategoryINput">Category Name</label>

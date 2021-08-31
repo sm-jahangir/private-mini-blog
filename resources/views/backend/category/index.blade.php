@@ -5,6 +5,8 @@
   <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="{{ asset('backend') }}/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 @endpush
 @section('main-content')
 <!-- Content Wrapper. Contains page content -->
@@ -49,15 +51,28 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 4.0
-                      </td>
-                      <td>Win 95+</td>
-                      <td> 4</td>
-                      <td>X</td>
-                    </tr>
+                      @foreach ($category as $key=>$row)
+                      <tr>
+                        <td>{{$key+1}}</td>
+                        <td> {{$row->name}} </td>
+                        <td>{{$row->slug}}</td>
+                        <td>{{$row->created_at->diffForHumans()}}</td>
+                        <td>
+                          <a class="btn btn-primary btn-sm" href="{{route('admin.category.edit',$row->id)}}" role="button">Edit</a>
+                          <a class="btn btn-info btn-sm" href="{{route('admin.category.edit',$row->id)}}" role="button">View</a>
+                          <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{ $row->id }})">
+                            <i class="fas fa-trash-alt"></i>
+                            <span>Delete</span>
+                          </button>                          
+                          <form id="delete-form-{{ $row->id }}"
+                            action="{{ route('admin.category.destroy',$row->id) }}" method="POST"
+                            style="display: none;">
+                          @csrf()
+                          @method('DELETE')
+                      </form>
+                        </td>
+                      </tr>
+                      @endforeach
                     </tbody>
                     <tfoot>
                     <tr>
@@ -73,7 +88,23 @@
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
-
+          <script>
+            function deleteData(id) {
+              Swal.fire({
+                  title: 'Are you sure?',
+                  text: "You won't be able to revert this!",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                  if (result.value) {
+                      document.getElementById('delete-form-' + id).submit();
+                  }
+              })
+          }
+          </script>
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
@@ -95,7 +126,8 @@
 <script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
+<!-- SweetAlert2 -->
+<script src="{{ asset('backend') }}/plugins/sweetalert2/sweetalert2.min.js"></script>
 <script>
     $(function () {
       $("#example1").DataTable({
