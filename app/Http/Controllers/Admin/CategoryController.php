@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 
 class CategoryController extends Controller
 {
@@ -39,7 +40,8 @@ class CategoryController extends Controller
     {
         $category = new Category();
         $category->name = $request->name;
-        $category->save();        
+        $category->save();
+        Toastr::success('Category Added Successfully', 'Success');
         return redirect()->route('admin.category.index');
     }
 
@@ -62,7 +64,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('backend.category.create', compact('category'));
     }
 
     /**
@@ -74,7 +76,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $category->name = $request->name;
+        $category->save();
+        Toastr::info('Category Updated Successfully', 'Info');
+        return redirect()->route('admin.category.index');
     }
 
     /**
@@ -86,6 +91,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
+        Toastr::warning('Category Deleted Successfully', 'Warning');
         return back();
     }
 }

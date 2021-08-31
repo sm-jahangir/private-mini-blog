@@ -26,16 +26,19 @@
             <!-- Small boxes (Stat box) -->
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Category Create</h3>
+                    <h3 class="card-title">{{ __((isset($category) ? 'Edit' : 'Category Create') . ' Page') }}</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{route('admin.category.store')}}" method="POST">
+                <form action="{{ isset($category) ? route('admin.category.update',$category->id) : route('admin.category.store')}}" method="POST">
                     @csrf
+                    @isset($category)
+                        @method('PUT')
+                    @endisset
                     <div class="card-body">
                         <div class="form-group">
                             <label for="CategoryINput">Category Name</label>
-                            <input type="text" name="name" class="form-control" id="CategoryINput" placeholder="Enter your category Name">
+                            <input type="text" name="name" value="{{ isset($category) ? $category->name : old('name') }}" required class="form-control" id="CategoryINput" placeholder="Enter your category Name">
                         </div>
                         <div class="form-check">
                             <input type="checkbox" checked name="status" value="1" class="form-check-input" id="StatusCheck">
