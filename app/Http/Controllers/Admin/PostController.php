@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Tag;
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -26,7 +30,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('backend.post.form');
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('backend.post.form',compact('categories','tags'));
     }
 
     /**
@@ -37,7 +43,34 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new Post();
+
+
+        if($request->has('image')){
+            $image = $request->file('image');
+            $ext = $image->extension();
+            $file = time(). '.'.$ext;
+            $image->storeAs('public/post',$file);//above 4 line process the image code
+            $post->image =  $file;//ai code ta image ke insert kore
+        }
+
+        $post->user_id = Auth::id();
+        $post->title = $request->title;
+        $post->excerpt = $request->excerpt;
+        $post->body = $request->body;
+        $post->status = filled($request->status);
+        $post->featured = filled($request->featured);
+        $post->trending = filled($request->trending);
+        $post->popular = filled($request->popular);
+        $post->format = $request->format;
+        
+        $post->save();
+
+        $post->categories()->attach($request->categories);
+        $post->tags()->attach($request->tags);
+        
+        Toastr::success('Post Added Successfully', 'Success');
+        return redirect()->route('admin.post.index');
     }
 
     /**

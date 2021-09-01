@@ -209,16 +209,13 @@
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="form-group" data-select2-id="29">
-                                    <select name="category_id" class="select2 select2-hidden-accessible" multiple=""
+                                    <select name="categories[]" class="select2 select2-hidden-accessible" multiple=""
                                         data-placeholder="Select Category" style="width: 100%;" data-select2-id="7"
                                         tabindex="-1" aria-hidden="true">
-                                        <option data-select2-id="35">Alabama</option>
-                                        <option data-select2-id="36">Alaska</option>
-                                        <option data-select2-id="37">California</option>
-                                        <option data-select2-id="38">Delaware</option>
-                                        <option data-select2-id="39">Tennessee</option>
-                                        <option data-select2-id="40">Texas</option>
-                                        <option data-select2-id="41">Washington</option>
+                                        @foreach ($categories as $category)
+                                        <option value="{{$category->id}}">{{$category->name}}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <!-- /.form-group -->
@@ -241,16 +238,13 @@
                             <div class="card-body">
                                 <div class="form-group" data-select2-id="76">
                                     <div class="select2-purple" data-select2-id="75">
-                                        <select name="tag_id" class="select2 select2-hidden-accessible" multiple=""
+                                        <select name="tags[]" class="select2 select2-hidden-accessible" multiple=""
                                             data-placeholder="Select a Tags" data-dropdown-css-class="select2-purple"
                                             style="width: 100%;" data-select2-id="15" tabindex="-1" aria-hidden="true">
-                                            <option data-select2-id="78">Alabama</option>
-                                            <option data-select2-id="79">Alaska</option>
-                                            <option data-select2-id="80">California</option>
-                                            <option data-select2-id="81">Delaware</option>
-                                            <option data-select2-id="82">Tennessee</option>
-                                            <option data-select2-id="83">Texas</option>
-                                            <option data-select2-id="84">Washington</option>
+                                            @foreach ($tags as $tag)
+                                            <option value="{{$tag->id}}">{{$tag->name}}
+                                            </option>
+                                            @endforeach
                                     </div>
                                 </div>
                             </div>
