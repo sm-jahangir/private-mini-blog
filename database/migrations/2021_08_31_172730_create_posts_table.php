@@ -18,9 +18,6 @@ class CreatePostsTable extends Migration
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
-            $table->foreignId('category_id')
-                ->constrained('categories')
-                ->onDelete('cascade');
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('excerpt');
@@ -31,7 +28,6 @@ class CreatePostsTable extends Migration
             $table->boolean('trending')->default(false);
             $table->boolean('popular')->default(false);
             $table->string('format')->default('default');
-            $table->string('tags');
             $table->timestamps();
         });
     }
