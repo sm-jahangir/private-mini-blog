@@ -59,18 +59,26 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="excerpt">Post Excerpt</label>
-                                    <textarea class="form-control" name="excerpt" id="excerpt" rows="3"></textarea>
+                                    <textarea class="form-control" name="excerpt" id="excerpt" rows="3">{{ isset($post) ? $post->excerpt : '' }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" name="featured"
-                                            id="featured" checked>
+                                            id="featured"
+                                            @isset($post)
+                                                {{ $post->featured ? 'checked' : '' }}
+                                            @endisset
+                                            >
                                         <label class="custom-control-label" for="featured"> Is featured? </label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="summernote">Post Content</label>
-                                    <textarea name="body" id="summernote"></textarea>
+                                    <textarea name="body" id="summernote">
+                                        @isset($post)
+                                        {{$post->body ? $post->body : '' }}
+                                        @endisset>
+                                    </textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputFile">Featured Image</label>
@@ -84,6 +92,9 @@
                                             <span class="input-group-text">Upload</span>
                                         </div>
                                     </div>
+                                    @isset($post)
+                                        <img style="width: 100px; height:100px" src="{{asset('storage/post/').'/'.$post->image}}" alt="Image">
+                                    @endisset
                                 </div>
                                 <div class="row pt-3">
                                     <div class="col-md-6">
@@ -91,7 +102,11 @@
                                             <div
                                                 class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                                                 <input type="checkbox" name="trending" class="custom-control-input"
-                                                    id="trendingpost">
+                                                    id="trendingpost"
+                                                    @isset($post)
+                                                        {{ $post->trending ? 'checked' : '' }}
+                                                    @endisset
+                                                    >
                                                 <label class="custom-control-label" for="trendingpost">Trending
                                                     Post</label>
                                             </div>
@@ -102,7 +117,11 @@
                                             <div
                                                 class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
                                                 <input type="checkbox" name="popular" class="custom-control-input"
-                                                    id="popularpost">
+                                                    id="popularpost"
+                                                    @isset($post)
+                                                        {{ $post->popular ? 'checked' : '' }}
+                                                    @endisset
+                                                    >
                                                 <label class="custom-control-label" for="popularpost">Popular
                                                     Post</label>
                                             </div>
@@ -155,8 +174,16 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <select name="status" class="custom-select">
-                                        <option value="1">Active</option>
-                                        <option value="0">Pending</option>
+                                        <option 
+                                        @isset($post)
+                                            {{$post->status == true ? 'selected' : ''}}
+                                        @endisset
+                                        value="1">Active</option>
+                                        <option 
+                                        @isset($post)
+                                            {{$post->status == false ? 'selected' : ''}}
+                                        @endisset
+                                        value="0">Pending</option>
                                     </select>
                                 </div>
                             </div>
@@ -179,15 +206,26 @@
                                 <div class="form-group">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" value="default" name="format"
-                                            checked="">
+                                        @isset($post)
+                                            {{ $post->format == 'default' ? 'checked' : '' }}
+                                        @endisset
+                                        >
                                         <label class="form-check-label">Default</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" value="gallery" type="radio" name="format">
+                                        <input class="form-check-input" value="gallery" type="radio" name="format"
+                                        @isset($post)
+                                            {{ $post->format == 'gallery' ? 'checked' : '' }}
+                                        @endisset
+                                        >
                                         <label class="form-check-label">Gallery</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" value="video" type="radio" name="format">
+                                        <input class="form-check-input" value="video" type="radio" name="format"
+                                        @isset($post)
+                                            {{ $post->format == 'video' ? 'checked' : '' }}
+                                        @endisset
+                                        >
                                         <label class="form-check-label">Video</label>
                                     </div>
                                 </div>
@@ -213,7 +251,15 @@
                                         data-placeholder="Select Category" style="width: 100%;" data-select2-id="7"
                                         tabindex="-1" aria-hidden="true">
                                         @foreach ($categories as $category)
-                                        <option value="{{$category->id}}">{{$category->name}}
+                                        <option
+                                        @isset($post)
+                                            
+                                            @foreach ($post->categories as $postcat)
+                                            {{ $postcat->id == $category->id ? 'selected' : '' }}
+                                            @endforeach
+
+                                        @endisset
+                                        value="{{$category->id}}">{{$category->name}}
                                         </option>
                                         @endforeach
                                     </select>
@@ -242,7 +288,13 @@
                                             data-placeholder="Select a Tags" data-dropdown-css-class="select2-purple"
                                             style="width: 100%;" data-select2-id="15" tabindex="-1" aria-hidden="true">
                                             @foreach ($tags as $tag)
-                                            <option value="{{$tag->id}}">{{$tag->name}}
+                                            <option
+                                                @isset($post)  
+                                                    @foreach ($post->tags as $tag)
+                                                    {{ $tag->id == $tag->id ? 'selected' : '' }}
+                                                    @endforeach
+                                                @endisset
+                                            value="{{$tag->id}}">{{$tag->name}}
                                             </option>
                                             @endforeach
                                     </div>
