@@ -122,21 +122,23 @@ class UserController extends Controller
         if (auth()->user()->can('admin-edit')) {
                 
             // Create New User
-            $user = User::find($id);
 
             // Validation Data
             $request->validate([
                 'name' => 'required|max:50',
-                'email' => 'required|max:100|email|unique:users,email,' . $id,
-                'password' => 'nullable|min:6|confirmed',
             ]);
 
 
-            $user->name = $request->name;
-            $user->email = $request->email;
-            if ($request->password) {
-                $user->password = Hash::make($request->password);
+            if($request->has('image')){
+                $image = $request->file('image');
+                $ext = $image->extension();
+                $file = time(). '.'.$ext;
+                $image->storeAs('public/user',$file);//above 4 line process the image code
+                $user->image =  $file;//ai code ta image ke insert kore
             }
+            $user->name = $request->name;
+            $user->username = $request->username;
+            $user->email = $request->email;
             $user->save();
 
             $user->roles()->detach();

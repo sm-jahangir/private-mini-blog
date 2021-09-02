@@ -31,7 +31,10 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{ isset($user) ? route('admin.user.update',$user->id) : route('admin.user.store')}}" method="user" enctype="multipart/form-data">
+                <form action="{{ isset($user) ? route('admin.user.update',$user->id) : route('admin.user.store')}}" method="POST" enctype="multipart/form-data">
+                    @isset($user)
+                        @method('PUT')
+                    @endisset
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
