@@ -17,12 +17,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Category</h1>
+                    <h1 class="m-0">Users</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Category Page</li>
+                        <li class="breadcrumb-item active">Users Page</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -36,37 +36,49 @@
             <!-- Small boxes (Stat box) -->
             <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Category List</h3>
-                  <a class="btn btn-success btn-lg float-right" href="{{ route('admin.category.create') }}">Add New</a>
+                  <h3 class="card-title">Users List</h3>
+                  <a class="btn btn-success btn-lg float-right" href="{{ route('admin.user.create') }}">Add New</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Slug</th>
-                      <th>Created At</th>
-                      <th>Action</th>
+                      <th width="2%">ID</th>
+                      <th width="7%">Image</th>
+                      <th width="20%">Name</th>
+                      <th width="25%">Username</th>
+                      <th width="15%">Role</th>
+                      <th width="15%">Created At</th>
+                      <th width="15%">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                      @foreach ($category as $key=>$row)
+                      @foreach ($users as $key=>$row)
                       <tr>
                         <td>{{$key+1}}</td>
+                        <td>
+                          <img style="width: 100px;height: 100px" src="{{asset('storage/user') . '/' . $row->image}}" alt="Image">
+                        </td>
                         <td> {{$row->name}} </td>
-                        <td>{{$row->slug}}</td>
+                        <td>{{$row->username}}</td>
+                        <td>
+                            @foreach ($row->roles as $role)
+                            <span style="font-size: 13px;"
+                                class="badge badge-pill badge-primary">{{ $role->name }}</span>
+                            @endforeach
+                        </td>
                         <td>{{$row->created_at->diffForHumans()}}</td>
                         <td>
-                          <a class="btn btn-primary btn-sm" href="{{route('admin.category.edit',$row->id)}}" role="button">Edit</a>
-                          <a class="btn btn-info btn-sm" href="{{route('admin.category.edit',$row->id)}}" role="button">View</a>
+                          <a class="btn btn-primary btn-sm" href="{{route('admin.user.edit',$row->id)}}" role="button"><i class="fas fa-edit"></i></a>
+                          <a class="btn btn-info btn-sm" href="{{route('admin.user.edit',$row->id)}}" role="button">
+                            <i class="fas fa-eye"></i>
+                          </a>
                           <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{ $row->id }})">
-                            <i class="fas fa-trash-alt"></i>
-                            <span>Delete</span>
+                            <span><i class="fas fa-trash"></i></span>
                           </button>                          
                           <form id="delete-form-{{ $row->id }}"
-                            action="{{ route('admin.category.destroy',$row->id) }}" method="POST"
+                            action="{{ route('admin.user.destroy',$row->id) }}" method="POST"
                             style="display: none;">
                           @csrf()
                           @method('DELETE')
@@ -77,11 +89,13 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                      <th>Rendering engine</th>
-                      <th>Name</th>
-                      <th>Slug</th>
-                      <th>Created At</th>
-                      <th>Action</th>
+                      <th width="2%">ID</th>
+                      <th width="7%">Image</th>
+                      <th width="20%">Name</th>
+                      <th width="25%">Username</th>
+                      <th width="15%">Role</th>
+                      <th width="15%">Created At</th>
+                      <th width="15%">Action</th>
                     </tr>
                     </tfoot>
                   </table>
