@@ -138,6 +138,31 @@
                         </ul>
                     </li>
                  @endcan
+                 @can('page-view')
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon far fa-plus-square"></i>
+                            <p>
+                                Appearance
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Theme</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.newsletter') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Newsletter</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                 @endcan
                     <li class="nav-item">
                         <a href="{{route('admin.blank')}}" class="nav-link {{ Request::is('admin/blank') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-copy"></i>
