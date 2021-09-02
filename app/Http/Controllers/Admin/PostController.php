@@ -19,8 +19,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::all();
-        return view('backend.post.index', compact('post'));
+        if (Auth::user()->can('blog-view')) {
+            $post = Post::all();
+            return view('backend.post.index', compact('post'));
+        }else {
+            return redirect()->route('admin.401');
+        }
     }
 
     /**
@@ -30,9 +34,14 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        $tags = Tag::all();
-        return view('backend.post.form',compact('categories','tags'));
+        if (Auth::user()->can('blog-create')) {
+            $categories = Category::all();
+            $tags = Tag::all();
+            return view('backend.post.form',compact('categories','tags'));
+        } else {
+            return redirect()->route('admin.401');
+        }
+        
     }
 
     /**
@@ -43,34 +52,37 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Post();
+        if (Auth::user()->can('blog-create')) {
+            $post = new Post();
 
+            if($request->has('image')){
+                $image = $request->file('image');
+                $ext = $image->extension();
+                $file = time(). '.'.$ext;
+                $image->storeAs('public/post',$file);//above 4 line process the image code
+                $post->image =  $file;//ai code ta image ke insert kore
+            }
+            $post->user_id = Auth::id();
+            $post->title = $request->title;
+            $post->excerpt = $request->excerpt;
+            $post->body = $request->body;
+            $post->status = $request->status;
+            $post->featured = filled($request->featured);
+            $post->trending = filled($request->trending);
+            $post->popular = filled($request->popular);
+            $post->format = $request->format;
+            
+            $post->save();
 
-        if($request->has('image')){
-            $image = $request->file('image');
-            $ext = $image->extension();
-            $file = time(). '.'.$ext;
-            $image->storeAs('public/post',$file);//above 4 line process the image code
-            $post->image =  $file;//ai code ta image ke insert kore
+            $post->categories()->attach($request->categories);
+            $post->tags()->attach($request->tags);
+            
+            Toastr::success('Post Added Successfully', 'Success');
+            return redirect()->route('admin.post.index');
+        } else {
+            return redirect()->route('admin.401');
         }
-
-        $post->user_id = Auth::id();
-        $post->title = $request->title;
-        $post->excerpt = $request->excerpt;
-        $post->body = $request->body;
-        $post->status = $request->status;
-        $post->featured = filled($request->featured);
-        $post->trending = filled($request->trending);
-        $post->popular = filled($request->popular);
-        $post->format = $request->format;
-        
-        $post->save();
-
-        $post->categories()->attach($request->categories);
-        $post->tags()->attach($request->tags);
-        
-        Toastr::success('Post Added Successfully', 'Success');
-        return redirect()->route('admin.post.index');
+    
     }
 
     /**
@@ -91,9 +103,14 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $categories = Category::all();
-        $tags = Tag::all();
-        return view('backend.post.form', compact('post','categories','tags'));
+        if (Auth::user()->can('blog-edit')) {
+            $categories = Category::all();
+            $tags = Tag::all();
+            return view('backend.post.form', compact('post','categories','tags'));
+        } else {
+            return redirect()->route('admin.401');
+        }
+        
     }
 
     /**
@@ -105,30 +122,35 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        if($request->has('image')){
-            $image = $request->file('image');
-            $ext = $image->extension();
-            $file = time(). '.'.$ext;
-            $image->storeAs('public/post',$file);//above 4 line process the image code
-            $post->image =  $file;//ai code ta image ke insert kore
-        }
+        if (Auth::user()->can('blog-edit')) {
+            if($request->has('image')){
+                $image = $request->file('image');
+                $ext = $image->extension();
+                $file = time(). '.'.$ext;
+                $image->storeAs('public/post',$file);//above 4 line process the image code
+                $post->image =  $file;//ai code ta image ke insert kore
+            }
 
-        $post->user_id = Auth::id();
-        $post->title = $request->title;
-        $post->excerpt = $request->excerpt;
-        $post->body = $request->body;
-        $post->status = $request->status;
-        $post->featured = filled($request->featured);
-        $post->trending = filled($request->trending);
-        $post->popular = filled($request->popular);
-        $post->format = $request->format;
+            $post->user_id = Auth::id();
+            $post->title = $request->title;
+            $post->excerpt = $request->excerpt;
+            $post->body = $request->body;
+            $post->status = $request->status;
+            $post->featured = filled($request->featured);
+            $post->trending = filled($request->trending);
+            $post->popular = filled($request->popular);
+            $post->format = $request->format;
+            
+            $post->save();
+            $post->categories()->sync($request->categories);
+            $post->tags()->sync($request->tags);
+            
+            Toastr::success('Post Updated Successfully', 'Info');
+            return redirect()->route('admin.post.index');
+        } else {
+            return redirect()->route('admin.401');
+        }
         
-        $post->save();
-        $post->categories()->sync($request->categories);
-        $post->tags()->sync($request->tags);
-        
-        Toastr::success('Post Updated Successfully', 'Info');
-        return redirect()->route('admin.post.index');
     }
 
     /**
@@ -139,8 +161,13 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->delete();
-        Toastr::warning('Post Deleted Successfully', 'Warning');
-        return back();
+        if (Auth::user()->can('blog-destory')) {
+            $post->delete();
+            Toastr::warning('Post Deleted Successfully', 'Warning');
+            return back();
+        } else {
+            return redirect()->route('admin.401');
+        }
+        
     }
 }

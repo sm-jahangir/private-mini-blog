@@ -25,4 +25,5 @@ Route::group(['middleware' => ['auth:web'], 'prefix' => 'admin', 'as' => 'admin.
     Route::resource('tag', TagController::class);
     Route::resource('post', PostController::class);
     Route::resource('page', PageController::class);
+    Route::view('401', 'backend.401')->name('401');
 });
