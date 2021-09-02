@@ -6,6 +6,7 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 
 class TagController extends Controller
 {
@@ -16,8 +17,13 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tag = Tag::all();
-        return view('backend.tag.index', compact('tag'));
+        if (Auth::user()->can('tag-view')) {
+            $tag = Tag::all();
+            return view('backend.tag.index', compact('tag'));
+        } else {
+            return redirect()->route('admin.401');
+        }
+        
     }
 
     /**
@@ -27,7 +33,11 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('backend.tag.create');
+        if (Auth::user()->can('tag-create')) {
+            return view('backend.tag.create');
+        } else {
+            return redirect()->route('admin.401');
+        }
     }
 
     /**
@@ -38,11 +48,15 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        $tag = new Tag();
-        $tag->name = $request->name;
-        $tag->save();
-        Toastr::success('Tag Added Successfully', 'Success');
-        return redirect()->route('admin.tag.index');
+        if (Auth::user()->can('tag-create')) {
+            $tag = new Tag();
+            $tag->name = $request->name;
+            $tag->save();
+            Toastr::success('Tag Added Successfully', 'Success');
+            return redirect()->route('admin.tag.index');
+        } else {
+            return redirect()->route('admin.401');
+        }
     }
 
     /**
@@ -64,7 +78,11 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        return view('backend.tag.create', compact('tag'));
+        if (Auth::user()->can('tag-edit')) {
+            return view('backend.tag.create', compact('tag'));
+        } else {
+            return redirect()->route('admin.401');
+        }
     }
 
     /**
@@ -76,10 +94,14 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        $tag->name = $request->name;
-        $tag->save();
-        Toastr::info('Tag Updated Successfully', 'Info');
-        return redirect()->route('admin.tag.index');
+        if (Auth::user()->can('tag-edit')) {
+            $tag->name = $request->name;
+            $tag->save();
+            Toastr::info('Tag Updated Successfully', 'Info');
+            return redirect()->route('admin.tag.index');
+        } else {
+            return redirect()->route('admin.401');
+        }
     }
 
     /**
@@ -90,8 +112,12 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        $tag->delete();
-        Toastr::warning('Tag Deleted Successfully', 'Warning');
-        return back();
+        if (Auth::user()->can('tag-delete')) {
+            $tag->delete();
+            Toastr::warning('Tag Deleted Successfully', 'Warning');
+            return back();
+        } else {
+            return redirect()->route('admin.401');
+        }
     }
 }

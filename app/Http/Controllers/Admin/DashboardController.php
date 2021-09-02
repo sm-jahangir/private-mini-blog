@@ -12,6 +12,8 @@ class DashboardController extends Controller
     {
         if (Auth::user()->can('dashboard-view')) {
             return view('backend.dashboard');
+        }else {
+            return redirect()->route('admin.401');
         }
     }
 }

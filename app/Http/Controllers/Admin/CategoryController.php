@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -16,8 +17,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::all();
-        return view('backend.category.index', compact('category'));
+        if (Auth::user()->can('category-view')) {
+            $category = Category::all();
+            return view('backend.category.index', compact('category'));
+        } else {
+            return redirect()->route('admin.401');
+        }
+        
     }
 
     /**
@@ -27,7 +33,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('backend.category.create');
+        if (Auth::user()->can('category-create')) {
+            return view('backend.category.create');
+        } else {
+            return redirect()->route('admin.401');
+        }
     }
 
     /**
@@ -38,11 +48,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new Category();
-        $category->name = $request->name;
-        $category->save();
-        Toastr::success('Category Added Successfully', 'Success');
-        return redirect()->route('admin.category.index');
+        if (Auth::user()->can('category-create')) {
+            $category = new Category();
+            $category->name = $request->name;
+            $category->save();
+            Toastr::success('Category Added Successfully', 'Success');
+            return redirect()->route('admin.category.index');
+        } else {
+            return redirect()->route('admin.401');
+        }
     }
 
     /**
@@ -64,7 +78,11 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('backend.category.create', compact('category'));
+        if (Auth::user()->can('category-edit')) {
+            return view('backend.category.create', compact('category'));
+        } else {
+            return redirect()->route('admin.401');
+        }
     }
 
     /**
@@ -76,10 +94,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $category->name = $request->name;
-        $category->save();
-        Toastr::info('Category Updated Successfully', 'Info');
-        return redirect()->route('admin.category.index');
+        if (Auth::user()->can('category-edit')) {
+            $category->name = $request->name;
+            $category->save();
+            Toastr::info('Category Updated Successfully', 'Info');
+            return redirect()->route('admin.category.index');
+        } else {
+            return redirect()->route('admin.401');
+        }
     }
 
     /**
@@ -90,8 +112,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
-        Toastr::warning('Category Deleted Successfully', 'Warning');
-        return back();
+        if (Auth::user()->can('category-delete')) {
+            $category->delete();
+            Toastr::warning('Category Deleted Successfully', 'Warning');
+            return back();
+        } else {
+            return redirect()->route('admin.401');
+        }
     }
 }

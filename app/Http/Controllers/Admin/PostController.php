@@ -161,7 +161,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if (Auth::user()->can('blog-destory')) {
+        if (Auth::user()->can('blog-delete')) {
             $post->delete();
             Toastr::warning('Post Deleted Successfully', 'Warning');
             return back();

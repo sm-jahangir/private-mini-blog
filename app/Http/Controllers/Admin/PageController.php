@@ -9,6 +9,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
@@ -19,8 +20,13 @@ class PageController extends Controller
      */
     public function index()
     {
-        $page = Page::all();
-        return view('backend.page.index', compact('page'));
+        if (Auth::user()->can('page-view')) {
+            $page = Page::all();
+            return view('backend.page.index', compact('page'));
+        } else {
+            return redirect()->route('admin.401');  
+        }
+        
     }
 
     /**
@@ -30,7 +36,11 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('backend.page.form');
+        if (Auth::user()->can('page-create')) {
+            return view('backend.page.form');
+        } else {
+            return redirect()->route('admin.401');  
+        }
     }
 
     /**
@@ -41,28 +51,32 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        $page = new Page();
+        if (Auth::user()->can('page-create')) {
+            $page = new Page();
 
 
-        if($request->has('image')){
-            $image = $request->file('image');
-            $ext = $image->extension();
-            $file = time(). '.'.$ext;
-            $image->storeAs('public/page',$file);//above 4 line process the image code
-            $page->image =  $file;//ai code ta image ke insert kore
+            if($request->has('image')){
+                $image = $request->file('image');
+                $ext = $image->extension();
+                $file = time(). '.'.$ext;
+                $image->storeAs('public/page',$file);//above 4 line process the image code
+                $page->image =  $file;//ai code ta image ke insert kore
+            }
+
+            $page->title = $request->title;
+            $page->excerpt = $request->excerpt;
+            $page->body = $request->body;
+            $page->meta_description = $request->meta_description;
+            $page->meta_keywords = $request->meta_keywords;
+            $page->status = $request->status;
+            
+            $page->save();
+            
+            Toastr::success('Page Added Successfully', 'Success');
+            return redirect()->route('admin.page.index');
+        } else {
+            return redirect()->route('admin.401');  
         }
-
-        $page->title = $request->title;
-        $page->excerpt = $request->excerpt;
-        $page->body = $request->body;
-        $page->meta_description = $request->meta_description;
-        $page->meta_keywords = $request->meta_keywords;
-        $page->status = $request->status;
-        
-        $page->save();
-        
-        Toastr::success('Page Added Successfully', 'Success');
-        return redirect()->route('admin.page.index');
     }
 
     /**
@@ -84,7 +98,11 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        return view('backend.page.form', compact('page'));
+        if (Auth::user()->can('page-edit')) {
+            return view('backend.page.form', compact('page'));
+        } else {
+            return redirect()->route('admin.401');  
+        }
     }
 
     /**
@@ -96,26 +114,30 @@ class PageController extends Controller
      */
     public function update(Request $request, Page $page)
     {
+        if (Auth::user()->can('page-edit')) {
+            if($request->has('image')){
+                $image = $request->file('image');
+                $ext = $image->extension();
+                $file = time(). '.'.$ext;
+                $image->storeAs('public/page',$file);//above 4 line process the image code
+                $page->image =  $file;//ai code ta image ke insert kore
+            }
 
-        if($request->has('image')){
-            $image = $request->file('image');
-            $ext = $image->extension();
-            $file = time(). '.'.$ext;
-            $image->storeAs('public/page',$file);//above 4 line process the image code
-            $page->image =  $file;//ai code ta image ke insert kore
+            $page->title = $request->title;
+            $page->excerpt = $request->excerpt;
+            $page->body = $request->body;
+            $page->meta_description = $request->meta_description;
+            $page->meta_keywords = $request->meta_keywords;
+            $page->status = $request->status;
+            
+            $page->save();
+            
+            Toastr::info('Page Updated Successfully', 'Info');
+            return redirect()->route('admin.page.index');
+        } else {
+            return redirect()->route('admin.401');  
         }
 
-        $page->title = $request->title;
-        $page->excerpt = $request->excerpt;
-        $page->body = $request->body;
-        $page->meta_description = $request->meta_description;
-        $page->meta_keywords = $request->meta_keywords;
-        $page->status = $request->status;
-        
-        $page->save();
-        
-        Toastr::info('Page Updated Successfully', 'Info');
-        return redirect()->route('admin.page.index');
     }
 
     /**
@@ -126,8 +148,12 @@ class PageController extends Controller
      */
     public function destroy(Page $page)
     {
-        $page->delete();
-        Toastr::warning('Page Deleted Successfully', 'Warning');
-        return back();
+        if (Auth::user()->can('page-delete')) {
+            $page->delete();
+            Toastr::warning('Page Deleted Successfully', 'Warning');
+            return back();
+        } else {
+            return redirect()->route('admin.401');  
+        }
     }
 }

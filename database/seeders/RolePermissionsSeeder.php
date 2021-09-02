@@ -20,15 +20,38 @@ class RolePermissionsSeeder extends Seeder
            // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // create permissions
+        // Dashboard permissions
         Permission::create(['name' => 'dashboard-view']);
+
+        //BLog Permssions
         Permission::create(['name' => 'blog-create']);
         Permission::create(['name' => 'blog-view']);
         Permission::create(['name' => 'blog-edit']);
         Permission::create(['name' => 'blog-delete']);
         Permission::create(['name' => 'blog-approve']);
 
+        //Page Permissions
+        Permission::create(['name' => 'page-create']);
+        Permission::create(['name' => 'page-view']);
+        Permission::create(['name' => 'page-edit']);
+        Permission::create(['name' => 'page-delete']);
+        Permission::create(['name' => 'page-approve']);
 
+        //Category Permisions
+        Permission::create(['name' => 'category-create']);
+        Permission::create(['name' => 'category-view']);
+        Permission::create(['name' => 'category-edit']);
+        Permission::create(['name' => 'category-delete']);
+        Permission::create(['name' => 'category-approve']);
+
+        //Tag Permissions
+        Permission::create(['name' => 'tag-create']);
+        Permission::create(['name' => 'tag-view']);
+        Permission::create(['name' => 'tag-edit']);
+        Permission::create(['name' => 'tag-delete']);
+        Permission::create(['name' => 'tag-approve']);
+
+        //Role Permissions
         Permission::create(['name' => 'role-view']);
         Permission::create(['name' => 'role-create']);
         Permission::create(['name' => 'role-edit']);
@@ -36,6 +59,7 @@ class RolePermissionsSeeder extends Seeder
         Permission::create(['name' => 'role-approve']);
         Permission::create(['name' => 'role-update']);
 
+        //User Permissions
         Permission::create(['name' => 'admin-view']);
         Permission::create(['name' => 'admin-create']);
         Permission::create(['name' => 'admin-edit']);
@@ -43,6 +67,7 @@ class RolePermissionsSeeder extends Seeder
         Permission::create(['name' => 'admin-approve']);
         Permission::create(['name' => 'admin-update']);
 
+        //Profile Permissions
         Permission::create(['name' => 'profile-view']);
         Permission::create(['name' => 'profile-edit']);
         Permission::create(['name' => 'profile-update']);
