@@ -12,9 +12,10 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
+Route::view('/', 'frontend.index');
 
 Auth::routes();
 
