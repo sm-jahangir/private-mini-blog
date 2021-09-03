@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Social;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SocialController extends Controller
 {
@@ -24,7 +25,8 @@ class SocialController extends Controller
      */
     public function create()
     {
-        return view('backend.appearence.social');
+        $socials = DB::table('socials')->where('id', 1)->get();
+        return view('backend.appearence.social', compact('socials'));
     }
 
     /**
@@ -35,16 +37,19 @@ class SocialController extends Controller
      */
     public function store(Request $request)
     {
-        $social = new Social();
-        $social->fb_link = $request->fb_link;
-        $social->twtter_link = $request->twtter_link;
-        $social->linkedin_link = $request->linkedin_link;
-        $social->youtube_link = $request->youtube_link;
-        $social->instagram_link = $request->instagram_link;
-        $social->googleplus_link = $request->googleplus_link;
-        $social->pinterest_link = $request->pinterest_link;
-        $social->vimeo_link = $request->vimeo_link;
-        $social->save();
+        DB::table('socials')
+                ->where('id', 1)
+                ->update([
+                    'fb_link' => $request->fb_link,
+                    'twtter_link' => $request->twtter_link,
+                    'linkedin_link' => $request->linkedin_link,
+                    'youtube_link' => $request->youtube_link,
+                    'instagram_link' => $request->instagram_link,
+                    'googleplus_link' => $request->googleplus_link,
+                    'pinterest_link' => $request->pinterest_link,
+                    'vimeo_link' => $request->vimeo_link,
+                ]);
+
         return back();
     }
 
@@ -67,7 +72,7 @@ class SocialController extends Controller
      */
     public function edit(Social $social)
     {
-        return view('backend.appearence.social', compact('social'));
+        //
     }
 
     /**
@@ -79,16 +84,7 @@ class SocialController extends Controller
      */
     public function update(Request $request, Social $social)
     {
-        $social->fb_link = $request->fb_link;
-        $social->twtter_link = $request->twtter_link;
-        $social->linkedin_link = $request->linkedin_link;
-        $social->youtube_link = $request->youtube_link;
-        $social->instagram_link = $request->instagram_link;
-        $social->googleplus_link = $request->googleplus_link;
-        $social->pinterest_link = $request->pinterest_link;
-        $social->vimeo_link = $request->vimeo_link;
-        $social->save();
-        return back();
+        //
     }
 
     /**

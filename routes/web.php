@@ -35,6 +35,6 @@ Route::group(['middleware' => ['auth:web'], 'prefix' => 'admin', 'as' => 'admin.
     Route::get('newsletter', [NewsletterController::class, 'index'])->name('newsletter');
     Route::post('newsletter', [NewsletterController::class, 'store'])->name('newsletter.store');
     Route::delete('newsletter/{newsletter}', [NewsletterController::class, 'destroy'])->name('newsletter.destroy');
-    Route::resource('social', SocialController::class);
+    Route::resource('social', SocialController::class)->only('create', 'store');
 
 });

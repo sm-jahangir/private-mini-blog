@@ -155,7 +155,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{url('admin/social/1/edit')}}" class="nav-link">
+                                <a href="{{ route('admin.social.create') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Social Link</p>
                                 </a>
