@@ -147,184 +147,35 @@
                     <div class="col-lg-8 col-md-6 content-area">
                         <!-- Row -->
                         <div class="row">
-                            <div class="col-lg-6 col-md-12 col-sm-6">
-                                <div class="type-post">
-                                    <div class="entry-cover">
-                                        <div class="post-meta">
-                                            <span class="byline">by <a href="#" title="Indesign">inDesign</a></span>
-                                            <span class="post-date"><a href="#">MARCH 17, 2017</a></span>
+                            @foreach ($posts as $post)
+                                <div class="col-lg-6 col-md-12 col-sm-6">
+                                    <div class="type-post">
+                                        <div class="entry-cover">
+                                            <div class="post-meta">
+                                                <span class="byline">by <a href="#" title="Indesign">
+                                                    @foreach ($post->tags as $tag)
+                                                        {{$tag->name}}
+                                                    @endforeach
+                                                    </a></span>
+                                                <span class="post-date"><a href="#">{{$post->created_at->diffForHumans()}}</a></span>
+                                            </div>
+                                            <a href="{{ route('index.show', $post->slug) }}"><img src="{{ asset('images/thumbnail').'/'.$post->image }}" alt="Post" /></a>
                                         </div>
-                                        <a href="#"><img src="http://via.placeholder.com/370x250" alt="Post" /></a>
-                                    </div>
-                                    <div class="entry-content">
-                                        <div class="entry-header">
-                                            <span class="post-category"><a href="#" title="Technology">Technology</a></span>
-                                            <h3 class="entry-title"><a href="#" title="Traffic Jams Solved">Traffic
-                                                    Jams Solved </a></h3>
+                                        <div class="entry-content">
+                                            <div class="entry-header">
+                                                <span class="post-category"><a href="#" title="Technology">
+                                                    @foreach ($post->categories as $category)
+                                                        {{$category->name}}
+                                                    @endforeach    
+                                                </a></span>
+                                                <h3 class="entry-title"><a href="#" title="Traffic Jams Solved">{{$post->title}} </a></h3>
+                                            </div>
+                                            <p>{{$post->excerpt}}</p>
+                                            <a href="#" title="Read More">Read More</a>
                                         </div>
-                                        <p>But I must explain to you how all this mistaken idea of denouncing
-                                            pleasure and praising pain was born and I will give you a complete
-                                            account of the system, and expound the actual teachings...</p>
-                                        <a href="#" title="Read More">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-12 col-sm-6">
-                                <div class="type-post">
-                                    <div class="entry-cover">
-                                        <div class="post-meta">
-                                            <span class="byline">by <a href="#" title="Indesign">inDesign</a></span>
-                                            <span class="post-date"><a href="#">MARCH 17, 2017</a></span>
-                                        </div>
-                                        <a href="#"><img src="http://via.placeholder.com/370x250" alt="Post" /></a>
-                                    </div>
-                                    <div class="entry-content">
-                                        <div class="entry-header">
-                                            <span class="post-category"><a href="#" title="Travel">Travel</a></span>
-                                            <h3 class="entry-title"><a href="#" title="Charming Evening Field">Charming
-                                                    Evening Field</a></h3>
-                                        </div>
-                                        <p>No one rejects, dislikes, or avoids pleasure itself, because it is
-                                            pleasure, but because those who do not know how to pursue pleasure
-                                            rationally encounter consequences that are extremely...</p>
-                                        <a href="#" title="Read More">Read More</a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-md-12 col-sm-6">
-                                <div class="type-post">
-                                    <div class="entry-cover">
-                                        <div class="post-meta">
-                                            <span class="byline">by <a href="#" title="Indesign">inDesign</a></span>
-                                            <span class="post-date"><a href="#">MARCH 17, 2017</a></span>
-                                        </div>
-                                        <a href="#"><img src="http://via.placeholder.com/370x250" alt="Post" /></a>
-                                    </div>
-                                    <div class="entry-content">
-                                        <div class="entry-header">
-                                            <span class="post-category"><a href="#" title="Travel">Travel</a></span>
-                                            <h3 class="entry-title"><a href="#" title="Boat Trip to Mediterranean">Boat Trip
-                                                    to
-                                                    Mediterranean</a></h3>
-                                        </div>
-                                        <p>These cases are perfectly simple and easy to distinguish. In a free hour,
-                                            when our power of choice is untrammelled and when nothing prevents our
-                                            being able to do what we like best...</p>
-                                        <a href="#" title="Read More">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-12 col-sm-6">
-                                <div class="type-post">
-                                    <div class="entry-cover">
-                                        <div class="post-meta">
-                                            <span class="byline">by <a href="#" title="Indesign">inDesign</a></span>
-                                            <span class="post-date"><a href="#">MARCH 17, 2017</a></span>
-                                        </div>
-                                        <a href="#"><img src="http://via.placeholder.com/370x250" alt="Post" /></a>
-                                    </div>
-                                    <div class="entry-content">
-                                        <div class="entry-header">
-                                            <span class="post-category"><a href="#" title="Nature">Nature</a></span>
-                                            <h3 class="entry-title"><a href="#" title="Cliff Sunset Sea View">Cliff
-                                                    Sunset Sea View</a></h3>
-                                        </div>
-                                        <p>But I must explain to you how all this mistaken idea of denouncing
-                                            pleasure and praising pain was born and I will give you a complete
-                                            account of the system, and expound the actual teachings...</p>
-                                        <a href="#" title="Read More">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-12 col-sm-6">
-                                <div class="type-post">
-                                    <div class="entry-cover">
-                                        <div class="post-meta">
-                                            <span class="byline">by <a href="#" title="Indesign">inDesign</a></span>
-                                            <span class="post-date"><a href="#">MARCH 17, 2017</a></span>
-                                        </div>
-                                        <a href="#"><img src="http://via.placeholder.com/370x250" alt="Post" /></a>
-                                    </div>
-                                    <div class="entry-content">
-                                        <div class="entry-header">
-                                            <span class="post-category"><a href="#" title="Lifestyle">Lifestyle</a></span>
-                                            <h3 class="entry-title"><a href="#" title="Trendy Summer Fashion">Trendy
-                                                    Summer Fashion</a></h3>
-                                        </div>
-                                        <p>To take a trivial example, which of us ever undertakes laborious physical
-                                            exercise, except to obtain some advantage from it? But who has any right
-                                            to find fault with a man who chooses...</p>
-                                        <a href="#" title="Read More">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-12 col-sm-6">
-                                <div class="type-post">
-                                    <div class="entry-cover">
-                                        <div class="post-meta">
-                                            <span class="byline">by <a href="#" title="Indesign">inDesign</a></span>
-                                            <span class="post-date"><a href="#">MARCH 17, 2017</a></span>
-                                        </div>
-                                        <a href="#"><img src="http://via.placeholder.com/370x250" alt="Post" /></a>
-                                    </div>
-                                    <div class="entry-content">
-                                        <div class="entry-header">
-                                            <span class="post-category"><a href="#" title="Travel">Travel</a></span>
-                                            <h3 class="entry-title"><a href="#" title="Hammock Camping Tips">Hammock
-                                                    Camping Tips</a></h3>
-                                        </div>
-                                        <p>No one rejects, dislikes, or avoids pleasure itself, because it is
-                                            pleasure, but because those who do not know how to pursue pleasure
-                                            rationally encounter consequences that are extremely...</p>
-                                        <a href="#" title="Read More">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-12 col-sm-6">
-                                <div class="type-post">
-                                    <div class="entry-cover">
-                                        <div class="post-meta">
-                                            <span class="byline">by <a href="#" title="Indesign">inDesign</a></span>
-                                            <span class="post-date"><a href="#">MARCH 17, 2017</a></span>
-                                        </div>
-                                        <a href="#"><img src="http://via.placeholder.com/370x250" alt="Post" /></a>
-                                    </div>
-                                    <div class="entry-content">
-                                        <div class="entry-header">
-                                            <span class="post-category"><a href="#" title="Travel">Travel</a></span>
-                                            <h3 class="entry-title"><a href="#" title="Beautiful Rio de Janeiro">Beautiful
-                                                    Rio de Janeiro</a>
-                                            </h3>
-                                        </div>
-                                        <p>No one rejects, dislikes, or avoids pleasure itself, because it is
-                                            pleasure, but because those who do not know how to pursue pleasure
-                                            rationally encounter consequences that are extremely...</p>
-                                        <a href="#" title="Read More">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-12 col-sm-6">
-                                <div class="type-post">
-                                    <div class="entry-cover">
-                                        <div class="post-meta">
-                                            <span class="byline">by <a href="#" title="Indesign">inDesign</a></span>
-                                            <span class="post-date"><a href="#">MARCH 17, 2017</a></span>
-                                        </div>
-                                        <a href="#"><img src="http://via.placeholder.com/370x250" alt="Post" /></a>
-                                    </div>
-                                    <div class="entry-content">
-                                        <div class="entry-header">
-                                            <span class="post-category"><a href="#" title="Lifestyle">Lifestyle</a></span>
-                                            <h3 class="entry-title"><a href="#" title="New Fashion Outfits">New
-                                                    Fashion Outfits</a></h3>
-                                        </div>
-                                        <p>To take a trivial example, which of us ever undertakes laborious physical
-                                            exercise, except to obtain some advantage from it? But who has any right
-                                            to find fault with a man who chooses...</p>
-                                        <a href="#" title="Read More">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div><!-- Row /- -->
                         <!-- Pagination -->
                         <nav class="navigation pagination">

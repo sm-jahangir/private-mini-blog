@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\PageController;
@@ -15,7 +16,8 @@ use App\Http\Controllers\Admin\DashboardController;
 Route::get('/welcome', function () {
     return view('welcome');
 });
-Route::view('/', 'frontend.index');
+Route::get('/', [IndexController::class, 'index'])->name('index.post');
+Route::get('/blog/{slug}', [IndexController::class, 'show'])->name('index.show');
 
 Auth::routes();
 
