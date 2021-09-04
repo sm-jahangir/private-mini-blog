@@ -58,7 +58,7 @@
                       <tr>
                         <td>{{$key+1}}</td>
                         <td>
-                          <img style="width: 100px;height: 100px" src="{{asset('storage/post') . '/' . $row->image}}" alt="Image">
+                          <img style="width: 100px;height: 100px" src="{{asset('images/thumbnail') . '/' . $row->image}}" alt="Image">
                         </td>
                         <td> {{$row->title}} </td>
                         <td>{{$row->excerpt}}</td>

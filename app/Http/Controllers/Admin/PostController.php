@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
@@ -53,14 +54,19 @@ class PostController extends Controller
     public function store(Request $request)
     {
         if (Auth::user()->can('blog-create')) {
+            
             $post = new Post();
 
             if($request->has('image')){
-                $image = $request->file('image');
+                $image       = $request->file('image');
                 $ext = $image->extension();
-                $file = time(). '.'.$ext;
-                $image->storeAs('public/post',$file);//above 4 line process the image code
-                $post->image =  $file;//ai code ta image ke insert kore
+                $filename = time(). '.'.$ext;
+                // $filename    = $image->getClientOriginalName();//oporer dui line er poriborte ai line dileo hoy tobe seta image er real name nibe
+                $image_resize = Image::make($image->getRealPath());
+                // $image_resize->resize(770, 513);
+                $image_resize->fit(770, 513);
+                $image_resize->save(public_path('images/thumbnail/' .$filename));
+                $post->image = $filename;
             }
             $post->user_id = Auth::id();
             $post->title = $request->title;
@@ -124,11 +130,15 @@ class PostController extends Controller
     {
         if (Auth::user()->can('blog-edit')) {
             if($request->has('image')){
-                $image = $request->file('image');
+                $image       = $request->file('image');
                 $ext = $image->extension();
-                $file = time(). '.'.$ext;
-                $image->storeAs('public/post',$file);//above 4 line process the image code
-                $post->image =  $file;//ai code ta image ke insert kore
+                $filename = time(). '.'.$ext;
+                // $filename    = $image->getClientOriginalName();//oporer dui line er poriborte ai line dileo hoy tobe seta image er real name nibe
+                $image_resize = Image::make($image->getRealPath());
+                // $image_resize->resize(770, 513);
+                $image_resize->fit(770, 513);
+                $image_resize->save(public_path('images/thumbnail/' .$filename));
+                $post->image = $filename;
             }
 
             $post->user_id = Auth::id();
