@@ -37,9 +37,18 @@
                             <li class="dropdown">
                                 <a class="dropdown-toggle" href="#"><i class="pe-7s-user"></i></a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#" title="Sign In">Sign In</a></li>
-                                    <li><a class="dropdown-item" href="#" title="Subscribe">Subscribe </a></li>
-                                    <li><a class="dropdown-item" href="#" title="Log In">Log In</a></li>
+                                    @guest
+                                        <li><a class="dropdown-item" href="{{route('login')}}" title="Sign In">Sign In</a></li>
+                                        <li><a class="dropdown-item" href="#" title="Subscribe">Subscribe </a></li>
+                                        <li><a class="dropdown-item" href="{{route('register')}}" title="Registration">Registration</a></li>
+                                    @else
+                                        <li><a class="dropdown-item" href="{{route('home')}}" title="Sign In">Profile</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" title="Registration">Sign out</a></li>
+                                        
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    @endguest
                                 </ul>
                             </li>
                         </ul>
@@ -62,7 +71,7 @@
                 <div class="collapse navbar-collapse" id="navbar7">
                     <ul class="navbar-nav">
                         <li>
-                            <a class="nav-link" title="Home" href="index.html">Home</a>
+                            <a class="nav-link" title="Home" href="{{url('/')}}">Home</a>
                         </li>
                         <li>
                             <a class="nav-link" title="Posts" href="#">Posts</a>
