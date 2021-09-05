@@ -26,6 +26,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::post('newsletter', [NewsletterController::class, 'store'])->name('newsletter.store');
 
 Route::group(['middleware' => ['auth:web'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -39,7 +40,6 @@ Route::group(['middleware' => ['auth:web'], 'prefix' => 'admin', 'as' => 'admin.
     Route::resource('user', UserController::class);
 
     Route::get('newsletter', [NewsletterController::class, 'index'])->name('newsletter');
-    Route::post('newsletter', [NewsletterController::class, 'store'])->name('newsletter.store');
     Route::delete('newsletter/{newsletter}', [NewsletterController::class, 'destroy'])->name('newsletter.destroy');
     Route::resource('social', SocialController::class)->only('create', 'store');
 

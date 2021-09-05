@@ -57,8 +57,9 @@
             <i class="ion-ios-email-outline"></i>
             <h4>Sign Up for Newsletter</h4>
             <p>Sign up to receive latest posts and news </p>
-            <form>
-                <input type="text" class="form-control" placeholder="Your email address" />
+            <form action="{{route('newsletter.store')}}" method="POST">
+                @csrf
+                <input type="text" name="email" class="form-control" placeholder="Your email address" />
                 <input type="submit" value="Subscribe Now" />
             </form>
         </div>

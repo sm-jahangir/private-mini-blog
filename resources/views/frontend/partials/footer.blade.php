@@ -5,11 +5,12 @@
         <div class="container">
             <h3>Subscribe</h3>
             <p>Subscribe to a newsletter to receive latest post and updates</p>
-            <form class="newsletter">
+            <form class="newsletter" action="{{route('newsletter.store')}}" method="POST">
+                @csrf
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="enter your email address here">
+                    <input type="email" name="email" class="form-control" placeholder="enter your email address here">
                     <span class="input-group-btn">
-                        <button class="btn btn-secondary" type="button">subscribe</button>
+                        <button class="btn btn-secondary" type="submit">subscribe</button>
                     </span>
                 </div>
             </form>
