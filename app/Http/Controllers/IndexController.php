@@ -54,8 +54,21 @@ class IndexController extends Controller
      */
     public function show(Post $post,$slug)
     {
+        $populars = Post::latest()->where('popular', true)->paginate(8);
+        $trendings = Post::latest()->where('trending', true);
+        $categories = Category::latest()->paginate(8);
+        $single_post_tags = Tag::latest()->paginate(4);
+        $tags = Tag::latest()->get();
+
         $post = Post::where('slug',$slug)->first();
-        return view('frontend.details', compact('post'));
+
+        $related = Post::whereHas('tags', function ($q) use ($post) {
+            return $q->whereIn('name', $post->tags->pluck('name')); 
+        })
+        ->where('id', '!=', $post->id) // So you won't fetch same post
+        ->paginate(4);
+
+        return view('frontend.details', compact('post', 'categories', 'tags', 'trendings', 'populars', 'single_post_tags', 'related'));
     }
 
     /**
@@ -90,15 +103,5 @@ class IndexController extends Controller
     public function destroy(Post $post)
     {
         //
-    }
-    public function sidebar()
-    {
-        $posts = Post::latest()->paginate(8);
-        $populars = Post::latest()->where('popular', true)->paginate(8);
-        $featureds = Post::latest()->where('featured', true)->paginate(8);
-        $trendings = Post::latest()->where('trending', true)->paginate(8);
-        $categories = Category::latest()->get();
-        $tags = Tag::latest()->get();
-        return view('frontend.partials.sidebar', compact('posts', 'categories', 'tags', 'featureds', 'trendings', 'populars'));
     }
 }
