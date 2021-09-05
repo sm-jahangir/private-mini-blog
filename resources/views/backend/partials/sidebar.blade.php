@@ -38,6 +38,16 @@
                         </a>
                     </li>
                  @endcan
+                 @can('post-view')
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fas fa-table" aria-hidden="true"></i>
+                            <p>
+                                Main Slider
+                            </p>
+                        </a>
+                    </li>
+                 @endcan
                  @can('category-view')
                     <li class="nav-item {{ Request::is('admin/category*') ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ Request::is('admin/category*') ? 'active' : '' }}">
