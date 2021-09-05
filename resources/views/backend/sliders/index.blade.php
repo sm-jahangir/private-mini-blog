@@ -37,7 +37,7 @@
             <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Category List</h3>
-                  <a class="btn btn-success btn-lg float-right" href="{{ route('admin.category.create') }}">Add New</a>
+                  <a class="btn btn-success btn-lg float-right" href="{{ route('admin.slider.create') }}">Add New</a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -45,28 +45,40 @@
                     <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Name</th>
-                      <th>Slug</th>
-                      <th>Created At</th>
+                      <th>Title1</th>
+                      <th>Images 1</th>
+                      <th>Title2</th>
+                      <th>Images 2</th>
+                      <th>Title3</th>
+                      <th>Images 3</th>
                       <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                      @foreach ($category as $key=>$row)
+                      @foreach ($sliders as $key=>$row)
                       <tr>
                         <td>{{$key+1}}</td>
-                        <td> {{$row->name}} </td>
-                        <td>{{$row->slug}}</td>
-                        <td>{{$row->created_at->diffForHumans()}}</td>
+                        <td>{{$row->title1}}</td>
                         <td>
-                          <a class="btn btn-primary btn-sm" href="{{route('admin.category.edit',$row->id)}}" role="button">Edit</a>
-                          <a class="btn btn-info btn-sm" href="{{route('admin.category.edit',$row->id)}}" role="button">View</a>
+                          <img style="width: 100px" src="{{ asset('images/slider').'/' .$row->image1 }}" alt="">
+                        </td>
+                        <td>{{$row->title2}}</td>
+                        <td>
+                          <img style="width: 100px" src="{{ asset('images/slider').'/' .$row->image2 }}" alt="">
+                        </td>
+                        <td>{{$row->title3}}</td>
+                        <td>
+                          <img style="width: 100px" src="{{ asset('images/slider').'/'.$row->image3 }}" alt="">
+                        </td>
+                        <td>
+                          <a class="btn btn-primary btn-sm" href="{{route('admin.slider.edit',$row->id)}}" role="button">Edit</a>
+                          <a class="btn btn-info btn-sm" href="{{route('admin.slider.edit',$row->id)}}" role="button">View</a>
                           <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{ $row->id }})">
                             <i class="fas fa-trash-alt"></i>
                             <span>Delete</span>
                           </button>                          
                           <form id="delete-form-{{ $row->id }}"
-                            action="{{ route('admin.category.destroy',$row->id) }}" method="POST"
+                            action="{{ route('admin.slider.destroy',$row->id) }}" method="POST"
                             style="display: none;">
                           @csrf()
                           @method('DELETE')
@@ -77,8 +89,10 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                      <th>Rendering engine</th>
-                      <th>Name</th>
+                      <th>ID</th>
+                      <th>Images 1</th>
+                      <th>Images 2</th>
+                      <th>Images 3</th>
                       <th>Slug</th>
                       <th>Created At</th>
                       <th>Action</th>

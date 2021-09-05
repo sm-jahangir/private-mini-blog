@@ -29,8 +29,11 @@
                     <h3 class="card-title">{{ __((isset($slider) ? 'Edit' : 'Slider Create') . ' Page') }}</h3>
                 </div>
                 <!-- /.card-header -->
-                <form action="{{ route('admin.slider.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ isset($slider) ? route('admin.slider.update',$slider->id) : route('admin.slider.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    @isset($slider)
+                    @method('PUT')
+                    @endisset
                     <div style="margin: 20px 60px 10px 60px" class="card">
                         <div class="card-body">
                             <div class="card-header">
@@ -46,18 +49,21 @@
                                 <div class="form-group">
                                     <label for="SliderINput">Slider Category</label>
                                     <input type="text" name="slider_category1"
-                                        value="{{ isset($slider) ? $slider->slider_category1 : old('slider_category1') }}" required
+                                        value="{{ isset($slider) ? $slider->category_name1 : old('slider_category1') }}" required
                                         class="form-control" id="SliderINput" placeholder="Enter your slider Name">
                                 </div>
                                 <div class="form-group">
                                     <label for="SliderINput">Slider Link</label>
                                     <input type="text" name="slider_link1"
-                                        value="{{ isset($slider) ? $slider->slider_link1 : old('slider_link1') }}" required
+                                        value="{{ isset($slider) ? $slider->post_link1 : old('slider_link1') }}" required
                                         class="form-control" id="SliderINput" placeholder="Enter your slider Name">
                                 </div>
                                 <div class="form-group">
                                     <label for="SliderINput">Slider Image</label>
                                     <input type="file" name="image1" class="form-control" id="SliderINput" placeholder="Enter your slider Name">
+                                    @if (isset($slider) ? $slider : '')
+                                        <img style="width: 100px" src="{{ asset('images/slider').'/' .$slider->image1 }}" alt="">
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -78,18 +84,21 @@
                                 <div class="form-group">
                                     <label for="SliderINput">Slider Category</label>
                                     <input type="text" name="slider_category2"
-                                        value="{{ isset($slider) ? $slider->slider_category2 : old('slider_category2') }}" required
+                                        value="{{ isset($slider) ? $slider->category_name2 : old('slider_category2') }}" required
                                         class="form-control" id="SliderINput" placeholder="Enter your slider Name">
                                 </div>
                                 <div class="form-group">
                                     <label for="SliderINput">Slider Link</label>
                                     <input type="text" name="slider_link2"
-                                        value="{{ isset($slider) ? $slider->slider_link2 : old('slider_link2') }}" required
+                                        value="{{ isset($slider) ? $slider->post_link2 : old('slider_link2') }}" required
                                         class="form-control" id="SliderINput" placeholder="Enter your slider Name">
                                 </div>
                                 <div class="form-group">
                                     <label for="SliderINput">Slider Image</label>
                                     <input type="file" name="image2" class="form-control" id="SliderINput" placeholder="Enter your slider Name">
+                                    @if (isset($slider) ? $slider : '')
+                                        <img style="width: 100px" src="{{ asset('images/slider').'/' .$slider->image2 }}" alt="">
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -110,18 +119,21 @@
                                 <div class="form-group">
                                     <label for="SliderINput">Slider Category</label>
                                     <input type="text" name="slider_category3"
-                                        value="{{ isset($slider) ? $slider->slider_category3 : old('slider_category3') }}" required
+                                        value="{{ isset($slider) ? $slider->category_name3 : old('slider_category3') }}" required
                                         class="form-control" id="SliderINput" placeholder="Enter your slider Name">
                                 </div>
                                 <div class="form-group">
                                     <label for="SliderINput">Slider Link</label>
                                     <input type="text" name="slider_link3"
-                                        value="{{ isset($slider) ? $slider->slider_link3 : old('slider_link3') }}" required
+                                        value="{{ isset($slider) ? $slider->post_link3 : old('slider_link3') }}" required
                                         class="form-control" id="SliderINput" placeholder="Enter your slider Name">
                                 </div>
                                 <div class="form-group">
                                     <label for="SliderINput">Slider Image</label>
                                     <input type="file" name="image3" class="form-control" id="SliderINput" placeholder="Enter your slider Name">
+                                    @if (isset($slider) ? $slider : '')
+                                        <img style="width: 100px" src="{{ asset('images/slider').'/' .$slider->image3 }}" alt="">
+                                    @endif
                                 </div>
                             </div>
                         </div>
