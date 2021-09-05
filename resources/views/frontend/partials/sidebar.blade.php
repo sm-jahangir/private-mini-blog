@@ -16,7 +16,7 @@
         <h3 class="widget-title">Categories</h3>
         <ul>
             @foreach ($categories as $category)
-                <li><a href="#" title="Nature">{{$category->name}}</a></li>
+                <li><a href="{{ route('index.categorybypost', $category->slug) }}" title="Nature">{{$category->name}}</a></li>
             @endforeach
         </ul>
     </aside><!-- Widget : Categories /- -->
