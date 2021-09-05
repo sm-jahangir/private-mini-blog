@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Slider;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,8 @@ class IndexController extends Controller
         $trendings = Post::latest()->where('trending', true)->paginate(8);
         $categories = Category::latest()->get();
         $tags = Tag::latest()->get();
-        return view('frontend.index', compact('posts', 'categories', 'tags', 'featureds', 'trendings', 'populars'));
+        $sliders = Slider::latest()->get();
+        return view('frontend.index', compact('posts', 'categories', 'tags', 'featureds', 'trendings', 'populars', 'sliders'));
     }
 
     /**

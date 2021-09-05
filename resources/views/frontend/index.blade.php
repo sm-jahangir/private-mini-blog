@@ -9,76 +9,41 @@
             <div class="container">
                 <div id="slider-section2" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active">
-                            <div class="row">
-                                <div class="col-lg-8 col-sm-12 post-block post-big">
-                                    <div class="post-box">
-                                        <img src="http://via.placeholder.com/770x500" alt="Slide" />
-                                        <div class="entry-content">
-                                            <span class="post-category"><a href="#" title="Travel">Travel</a></span>
-                                            <h3><a href="#" title="Best Surfing Spots for Beginners and Advanced">Best
-                                                    Surfing Spots for Beginners and Advanced</a></h3>
-                                            <a href="#" title="Read More">Read More</a>
+                        @foreach($sliders as $key => $slider)
+                            {{-- <div class="carousel-item"> --}}
+                            <div class="carousel-item  {{$key == 0 ? 'active' : '' }}">
+                                <div class="row">
+                                    <div class="col-lg-8 col-sm-12 post-block post-big">
+                                        <div class="post-box">
+                                            <img src="{{ asset('images/slider').'/' .$slider->image1 }}" alt="Slide" />
+                                            <div class="entry-content">
+                                                <span class="post-category"><a href="#" title="{{$slider->category_name1}}">{{$slider->category_name1}}</a></span>
+                                                <h3><a href="{{ $slider->post_link1 }}" title="Best Surfing Spots for Beginners and Advanced">{{$slider->title1}}</a></h3>
+                                                <a href="{{ $slider->post_link1 }}" title="Read More">Read More</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4 col-sm-12 post-block post-thumb">
-                                    <div class="post-box">
-                                        <img src="http://via.placeholder.com/770x500" alt="Slide" />
-                                        <div class="entry-content">
-                                            <span class="post-category"><a href="#" title="Sport">Sport</a></span>
-                                            <h3><a href="#" title="High-Tech Prototype Bike Announced">High-Tech
-                                                    Prototype Bike Announced</a></h3>
-                                            <a href="#" title="Read More">Read More</a>
+                                    <div class="col-lg-4 col-sm-12 post-block post-thumb">
+                                        <div class="post-box">
+                                            <img src="{{ asset('images/slider').'/' .$slider->image2 }}" alt="Slide" />
+                                            <div class="entry-content">
+                                                <span class="post-category"><a href="#" title="{{$slider->category_name2}}">{{$slider->category_name2}}</a></span>
+                                                <h3><a href="{{ $slider->post_link2 }}" title="High-Tech Prototype Bike Announced">{{$slider->title2}}</a></h3>
+                                                <a href="{{ $slider->post_link2 }}" title="Read More">Read More</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="post-box">
-                                        <img src="http://via.placeholder.com/770x500" alt="Slide" />
-                                        <div class="entry-content">
-                                            <span class="post-category"><a href="#" title="Nature">Nature</a></span>
-                                            <h3><a href="#" title="White Sand of The Desert Discovery">White Sand of
-                                                    The Desert Discovery</a></h3>
-                                            <a href="#" title="Read More">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="row">
-                                <div class="col-lg-8 post-block post-big">
-                                    <div class="post-box">
-                                        <img src="http://via.placeholder.com/770x500" alt="Slide" />
-                                        <div class="entry-content">
-                                            <span class="post-category"><a href="#" title="Travel">Travel</a></span>
-                                            <h3><a href="#" title="Best Surfing Spots for Beginners and Advanced">Best
-                                                    Surfing Spots for Beginners and Advanced</a></h3>
-                                            <a href="#" title="Read More">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 post-block post-thumb">
-                                    <div class="post-box">
-                                        <img src="http://via.placeholder.com/770x500" alt="Slide" />
-                                        <div class="entry-content">
-                                            <span class="post-category"><a href="#" title="Sport">Sport</a></span>
-                                            <h3><a href="#" title="High-Tech Prototype Bike Announced">High-Tech
-                                                    Prototype Bike Announced</a></h3>
-                                            <a href="#" title="Read More">Read More</a>
-                                        </div>
-                                    </div>
-                                    <div class="post-box">
-                                        <img src="http://via.placeholder.com/770x500" alt="Slide" />
-                                        <div class="entry-content">
-                                            <span class="post-category"><a href="#" title="Nature">Nature</a></span>
-                                            <h3><a href="#" title="White Sand of The Desert Discovery">White Sand of
-                                                    The Desert Discovery</a></h3>
-                                            <a href="#" title="Read More">Read More</a>
+                                        <div class="post-box">
+                                            <img src="{{ asset('images/slider').'/' .$slider->image3 }}" alt="Slide" />
+                                            <div class="entry-content">
+                                                <span class="post-category"><a href="#" title="{{$slider->category_name3}}">{{$slider->category_name3}}</a></span>
+                                                <h3><a href="{{ $slider->post_link3 }}" title="White Sand of The Desert Discovery">{{$slider->title3}}</a></h3>
+                                                <a href="{{ $slider->post_link3 }}" title="Read More">Read More</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div><!-- Container -->
