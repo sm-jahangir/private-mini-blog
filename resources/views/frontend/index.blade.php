@@ -93,48 +93,20 @@
                     <h3>Trending</h3>
                 </div><!-- Section Header /- -->
                 <div class="trending-carousel">
-                    <div class="type-post">
-                        <div class="entry-cover"><a href="#"><img src="http://via.placeholder.com/270x220"
-                                    alt="Trending" /></a></div>
-                        <div class="entry-content">
-                            <div class="entry-header">
-                                <span><a href="#" title="Art">Art</a></span>
-                                <h3 class="entry-title"><a href="#">A penguin bicycled behind an escalator</a></h3>
+                    @foreach ($trendings as $trending)
+                        <div class="type-post">
+                            <div class="entry-cover"><a href="{{ route('index.show', $trending->slug) }}"><img src="{{ asset('images/thumbnail').'/'.$trending->image }}"
+                                        alt="Trending" /></a></div>
+                            <div class="entry-content">
+                                <div class="entry-header">
+                                    @foreach ($trending->categories as $category)
+                                        <span><a href="#" title="{{$category->name}}">{{$category->name}}</a></span>
+                                    @endforeach   
+                                    <h3 class="entry-title"><a href="{{ route('index.show', $trending->slug) }}">{{ $trending->title }}</a></h3>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="type-post">
-                        <div class="entry-cover"><a href="#"><img src="http://via.placeholder.com/270x220"
-                                    alt="Trending" /></a></div>
-                        <div class="entry-content">
-                            <div class="entry-header">
-                                <span><a href="#" title="Travel">TRAVEL</a></span>
-                                <h3 class="entry-title"><a href="#">There was a legend about the well in the
-                                        garden</a></h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="type-post">
-                        <div class="entry-cover"><a href="#"><img src="http://via.placeholder.com/270x220"
-                                    alt="Trending" /></a></div>
-                        <div class="entry-content">
-                            <div class="entry-header">
-                                <span><a href="#" title="Nature">NATURE</a></span>
-                                <h3 class="entry-title"><a href="#">The entrance to the tunnel was his only way
-                                        out</a></h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="type-post">
-                        <div class="entry-cover"><a href="#"><img src="http://via.placeholder.com/270x220"
-                                    alt="Trending" /></a></div>
-                        <div class="entry-content">
-                            <div class="entry-header">
-                                <span><a href="#" title="Nature">NATURE</a></span>
-                                <h3 class="entry-title"><a href="#">He was going back to a place he'd hoped</a></h3>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div><!-- Container /- -->
         </div><!-- Trending Section /- -->
@@ -168,10 +140,10 @@
                                                         {{$category->name}}
                                                     @endforeach    
                                                 </a></span>
-                                                <h3 class="entry-title"><a href="#" title="Traffic Jams Solved">{{$post->title}} </a></h3>
+                                                <h3 class="entry-title"><a href="{{ route('index.show', $post->slug) }}" title="Traffic Jams Solved">{{$post->title}} </a></h3>
                                             </div>
                                             <p>{{$post->excerpt}}</p>
-                                            <a href="#" title="Read More">Read More</a>
+                                            <a href="{{ route('index.show', $post->slug) }}" title="Read More">Read More</a>
                                         </div>
                                     </div>
                                 </div>

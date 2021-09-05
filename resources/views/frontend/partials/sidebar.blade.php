@@ -2,44 +2,22 @@
     <!-- Widget : Latest Post -->
     <aside class="widget widget_latestposts">
         <h3 class="widget-title">Popular Posts</h3>
-        <div class="latest-content">
-            <a href="#" title="Recent Posts"><i><img src="http://via.placeholder.com/100x80" class="wp-post-image"
-                        alt="blog-1" /></i></a>
-            <h5><a title="Beautiful Landscape View of Rio de Janeiro" href="#">Beautiful
-                    Landscape View of Rio de Janeiro</a></h5>
-            <span><a href="#">march 14, 2017</a></span>
-        </div>
-        <div class="latest-content">
-            <a href="#" title="Recent Posts"><i><img src="http://via.placeholder.com/100x80" class="wp-post-image"
-                        alt="blog-1" /></i></a>
-            <h5><a title="Enjoy Your Holiday with Adventures" href="#">Enjoy Your Holiday with
-                    Adventures</a></h5>
-            <span><a href="#">march 15, 2017</a></span>
-        </div>
-        <div class="latest-content">
-            <a href="#" title="Recent Posts"><i><img src="http://via.placeholder.com/100x80" class="wp-post-image"
-                        alt="blog-1" /></i></a>
-            <h5><a title="Best Photography Experience Shooting" href="#">Best Photography
-                    Experience Shooting</a></h5>
-            <span><a href="#">march 15, 2017</a></span>
-        </div>
-        <div class="latest-content">
-            <a href="#" title="Recent Posts"><i><img src="http://via.placeholder.com/100x80" class="wp-post-image"
-                        alt="blog-1" /></i></a>
-            <h5><a title="How to Forecast Your Retirement Savings" href="#">How to Forecast Your
-                    Retirement Savings</a></h5>
-            <span><a href="#">march 16, 2017</a></span>
-        </div>
+        @foreach ($populars as $popular)
+            <div class="latest-content">
+                <a href="{{ route('index.show', $popular->slug) }}" title="Recent Posts"><i><img style="width: 100px;height:80px" src="{{ asset('images/thumbnail').'/'.$popular->image }}" class="wp-post-image"
+                            alt="blog-1" /></i></a>
+                <h5><a title="Beautiful Landscape View of Rio de Janeiro" href="{{ route('index.show', $popular->slug) }}">{{ $popular->title }}</a></h5>
+                <span><a href="#">{{ $popular->created_at->diffForHumans() }}</a></span>
+            </div>
+        @endforeach
     </aside><!-- Widget : Latest Post /- -->
     <!-- Widget : Categories -->
     <aside class="widget widget_categories text-center">
         <h3 class="widget-title">Categories</h3>
         <ul>
-            <li><a href="#" title="Nature">Nature</a></li>
-            <li><a href="#" title="Technology">Technology</a></li>
-            <li><a href="#" title="Travel">Travel</a></li>
-            <li><a href="#" title="Sport">Sport</a></li>
-            <li><a href="#" title="Lifestyle">Lifestyle</a></li>
+            @foreach ($categories as $category)
+                <li><a href="#" title="Nature">{{$category->name}}</a></li>
+            @endforeach
         </ul>
     </aside><!-- Widget : Categories /- -->
     <!-- Widget : Instagram -->
@@ -89,15 +67,9 @@
     <aside class="widget widget_tags_cloud">
         <h3 class="widget-title">Tags</h3>
         <div class="tagcloud">
-            <a href="#" title="Fashion">Fashion</a>
-            <a href="#" title="Travel">Travel</a>
-            <a href="#" title="Nature">Nature</a>
-            <a href="#" title="Technology">Technology</a>
-            <a href="#" title="Sport">Sport</a>
-            <a href="#" title="Weather">Weather</a>
-            <a href="#" title="Trends">Trends</a>
-            <a href="#" title="Lifestyle">Lifestyle</a>
-            <a href="#" title="Gear">Gear</a>
+            @foreach ($tags as $tag)
+                <a href="#" title="{{$tag->name}}">{{$tag->name}}</a>
+            @endforeach
         </div>
     </aside><!-- Widget : Tags /- -->
 </div><!-- Widget Area /- -->

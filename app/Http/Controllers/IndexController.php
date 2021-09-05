@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -15,7 +17,12 @@ class IndexController extends Controller
     public function index()
     {
         $posts = Post::latest()->paginate(8);
-        return view('frontend.index', compact('posts'));
+        $populars = Post::latest()->where('popular', true)->paginate(8);
+        $featureds = Post::latest()->where('featured', true)->paginate(8);
+        $trendings = Post::latest()->where('trending', true)->paginate(8);
+        $categories = Category::latest()->get();
+        $tags = Tag::latest()->get();
+        return view('frontend.index', compact('posts', 'categories', 'tags', 'featureds', 'trendings', 'populars'));
     }
 
     /**
@@ -83,5 +90,15 @@ class IndexController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+    public function sidebar()
+    {
+        $posts = Post::latest()->paginate(8);
+        $populars = Post::latest()->where('popular', true)->paginate(8);
+        $featureds = Post::latest()->where('featured', true)->paginate(8);
+        $trendings = Post::latest()->where('trending', true)->paginate(8);
+        $categories = Category::latest()->get();
+        $tags = Tag::latest()->get();
+        return view('frontend.partials.sidebar', compact('posts', 'categories', 'tags', 'featureds', 'trendings', 'populars'));
     }
 }
