@@ -68,7 +68,7 @@
         <h3 class="widget-title">Tags</h3>
         <div class="tagcloud">
             @foreach ($tags as $tag)
-                <a href="#" title="{{$tag->name}}">{{$tag->name}}</a>
+                <a href="{{ route('index.tagbypost', $tag->slug) }}" title="{{$tag->name}}">{{$tag->name}}</a>
             @endforeach
         </div>
     </aside><!-- Widget : Tags /- -->

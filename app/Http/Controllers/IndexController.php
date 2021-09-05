@@ -113,4 +113,13 @@ class IndexController extends Controller
         $categorybyposts = Category::where('slug', $slug)->first();
         return view('frontend.categorybypost', compact('categorybyposts', 'categories', 'tags','populars'));
     }
+    public function tagbypost($slug)
+    {
+        $categories = Category::latest()->paginate(8);
+        $populars = Post::latest()->where('popular', true)->paginate(8);
+        $single_post_tags = Tag::latest()->paginate(4);
+        $tags = Tag::latest()->get();
+        $tagbyposts = Tag::where('slug', $slug)->first();
+        return view('frontend.tagbypost', compact('tagbyposts', 'categories', 'tags','populars'));
+    }
 }

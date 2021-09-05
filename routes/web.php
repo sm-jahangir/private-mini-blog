@@ -19,6 +19,7 @@ Route::get('/welcome', function () {
 Route::get('/', [IndexController::class, 'index'])->name('index.post');
 Route::get('/blog/{slug}', [IndexController::class, 'show'])->name('index.show');
 Route::get('/category/{slug}', [IndexController::class, 'categorybypost'])->name('index.categorybypost');
+Route::get('/tag/{slug}', [IndexController::class, 'tagbypost'])->name('index.tagbypost');
 
 
 Auth::routes();
