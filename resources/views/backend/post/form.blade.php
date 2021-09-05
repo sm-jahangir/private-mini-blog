@@ -74,11 +74,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="summernote">Post Content</label>
-                                    <textarea name="body" id="summernote">
-                                        @isset($post)
-                                        {{$post->body ? $post->body : '' }}
-                                        @endisset>
-                                    </textarea>
+                                    <textarea name="body" id="summernote">@isset($post){{$post->body ? $post->body : ''}}@endisset</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputFile">Featured Image</label>
@@ -290,8 +286,8 @@
                                             @foreach ($tags as $tag)
                                             <option
                                                 @isset($post)  
-                                                    @foreach ($post->tags as $tag)
-                                                    {{ $tag->id == $tag->id ? 'selected' : '' }}
+                                                    @foreach ($post->tags as $posttag)
+                                                    {{ $posttag->id == $tag->id ? 'selected' : '' }}
                                                     @endforeach
                                                 @endisset
                                             value="{{$tag->id}}">{{$tag->name}}
