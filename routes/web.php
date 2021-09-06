@@ -13,6 +13,7 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\SliderinstagramController;
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -44,5 +45,6 @@ Route::group(['middleware' => ['auth:web'], 'prefix' => 'admin', 'as' => 'admin.
     Route::delete('newsletter/{newsletter}', [NewsletterController::class, 'destroy'])->name('newsletter.destroy');
     Route::resource('social', SocialController::class)->only('create', 'store');
     Route::resource('slider', SliderController::class);
+    Route::resource('sliderinstagram', SliderinstagramController::class);
 
 });

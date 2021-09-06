@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TagSeeder::class);
         $this->call(PostSeeder::class);
         $this->call(SliderSeeder::class);
+        $this->call(SliderinstagramSeeder::class);
     }
 }
