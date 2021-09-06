@@ -19,12 +19,9 @@
     <!-- Instagram -->
     <div class="container-fluid no-left-padding no-right-padding instagram-block">
         <ul class="instagram-carousel">
-            <li><a href="#"><img src="http://via.placeholder.com/318x319" alt="Instagram" /></a></li>
-            <li><a href="#"><img src="http://via.placeholder.com/318x319" alt="Instagram" /></a></li>
-            <li><a href="#"><img src="http://via.placeholder.com/318x319" alt="Instagram" /></a></li>
-            <li><a href="#"><img src="http://via.placeholder.com/318x319" alt="Instagram" /></a></li>
-            <li><a href="#"><img src="http://via.placeholder.com/318x319" alt="Instagram" /></a></li>
-            <li><a href="#"><img src="http://via.placeholder.com/318x319" alt="Instagram" /></a></li>
+            @foreach ($instagramsliders as $slider)
+                <li><a href="{{$slider->slider_link}}"><img src="{{ asset('images/instagram').'/'.$slider->image }}" alt="Instagram" /></a></li>
+            @endforeach
         </ul>
     </div><!-- Instagram /- -->
     <!-- Container -->

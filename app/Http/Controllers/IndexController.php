@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Slider;
+use App\Models\Sliderinstagram;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,8 @@ class IndexController extends Controller
         $categories = Category::latest()->get();
         $tags = Tag::latest()->get();
         $sliders = Slider::latest()->get();
-        return view('frontend.index', compact('posts', 'categories', 'tags', 'featureds', 'trendings', 'populars', 'sliders'));
+        $instagramsliders = Sliderinstagram::latest()->get();
+        return view('frontend.index', compact('posts', 'categories', 'tags', 'featureds', 'trendings', 'populars', 'sliders', 'instagramsliders'));
     }
 
     /**
