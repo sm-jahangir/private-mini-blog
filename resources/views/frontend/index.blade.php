@@ -135,7 +135,7 @@
                         </nav><!-- Pagination /- -->
                     </div><!-- Content Area /- -->
                     <!-- Widget Area -->
-                    @include('frontend.partials.sidebar')
+                    <x-frontend.sidebar />
                 </div>
             </div><!-- Container /- -->
         </div><!-- Page Content /- -->

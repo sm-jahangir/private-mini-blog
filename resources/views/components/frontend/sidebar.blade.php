@@ -24,30 +24,23 @@
     <aside class="widget widget_instagram">
         <h3 class="widget-title">Instagram</h3>
         <ul>
-            <li><a href="#"><img src="http://via.placeholder.com/111x111" alt="Instagram" /></a>
-            </li>
-            <li><a href="#"><img src="http://via.placeholder.com/111x111" alt="Instagram" /></a>
-            </li>
-            <li><a href="#"><img src="http://via.placeholder.com/111x111" alt="Instagram" /></a>
-            </li>
-            <li><a href="#"><img src="http://via.placeholder.com/111x111" alt="Instagram" /></a>
-            </li>
-            <li><a href="#"><img src="http://via.placeholder.com/111x111" alt="Instagram" /></a>
-            </li>
-            <li><a href="#"><img src="http://via.placeholder.com/111x111" alt="Instagram" /></a>
-            </li>
+            @foreach ($instagramimage as $item)
+                <li><a href="{{$item->slider_link}}"><img style="width: 111px;height:111px;" src="{{asset('images/instagram').'/'.$item->image}}" alt="Instagram" /></a></li>
+            @endforeach
         </ul>
     </aside><!-- Widget : Instagram /- -->
     <!-- Widget : Follow Us -->
     <aside class="widget widget_social">
         <h3 class="widget-title">FOLLOW US</h3>
         <ul>
-            <li><a href="#" title=""><i class="ion-social-facebook-outline"></i></a></li>
-            <li><a href="#" title=""><i class="ion-social-twitter-outline"></i></a></li>
-            <li><a href="#" title=""><i class="ion-social-instagram-outline"></i></a></li>
-            <li><a href="#" title=""><i class="ion-social-googleplus-outline"></i></a></li>
-            <li><a href="#" title=""><i class="ion-social-pinterest-outline"></i></a></li>
-            <li><a href="#" title=""><i class="ion-social-vimeo-outline"></i></a></li>
+            @foreach ($socialslink as $item)
+                <li><a href="{{$item->fb_link}}" title="Facebook"> {!! html_entity_decode($item->fb_link_icon) !!}</a></li>
+                <li><a href="{{$item->twtter_link}}" title="Twitter">{!! html_entity_decode($item->twtter_link_icon) !!}</a></li>
+                <li><a href="{{$item->instagram_link}}" title="Instagram">{!! html_entity_decode($item->instagram_link_icon) !!}</a></li>
+                <li><a href="{{$item->googleplus_link}}" title="Google Plus">{!! html_entity_decode($item->googleplus_link_icon) !!}</a></li>
+                <li><a href="{{$item->pinterest_link}}" title="Pinterest">{!! html_entity_decode($item->pinterest_link_icon) !!}</a></li>
+                <li><a href="{{$item->vimeo_link}}" title="Vimeo">{!! html_entity_decode($item->vimeo_link_icon) !!}</a></li>
+            @endforeach 
         </ul>
     </aside><!-- Widget : Follow Us /- -->
     <!-- Widget : Newsletter -->

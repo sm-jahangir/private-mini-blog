@@ -27,12 +27,14 @@
     <!-- Container -->
     <div class="container">
         <ul class="ftr-social">
-            <li><a href="#" title="Facebook"><i class="fa fa-facebook"></i>Facebook</a></li>
-            <li><a href="#" title="Twitter"><i class="fa fa-twitter"></i>twitter</a></li>
-            <li><a href="#" title="Instagram"><i class="fa fa-instagram"></i>Instagram</a></li>
-            <li><a href="#" title="Google Plus"><i class="fa fa-google-plus"></i>Google plus</a></li>
-            <li><a href="#" title="Pinterest"><i class="fa fa-pinterest-p"></i>pinterest</a></li>
-            <li><a href="#" title="Youtube"><i class="fa fa-youtube"></i>youtube</a></li>
+            @foreach ($socialslink as $item)
+                <li><a href="{{$item->fb_link}}" title="Facebook"> {!! html_entity_decode($item->fb_link_icon) !!} Facebook</a></li>
+                <li><a href="{{$item->twtter_link}}" title="Twitter">{!! html_entity_decode($item->twtter_link_icon) !!}twitter</a></li>
+                <li><a href="{{$item->instagram_link}}" title="Instagram">{!! html_entity_decode($item->instagram_link_icon) !!}Instagram</a></li>
+                <li><a href="{{$item->googleplus_link}}" title="Google Plus">{!! html_entity_decode($item->googleplus_link_icon) !!}Google plus</a></li>
+                <li><a href="{{$item->pinterest_link}}" title="Pinterest">{!! html_entity_decode($item->pinterest_link_icon) !!}pinterest</a></li>
+                <li><a href="{{$item->youtube_link}}" title="Youtube">{!! html_entity_decode($item->youtube_link_icon) !!}youtube</a></li>
+            @endforeach 
         </ul>
         <div class="copyright">
             <p>Copyright @ 2017 MINIBLOG</p>

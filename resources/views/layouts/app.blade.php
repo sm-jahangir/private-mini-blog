@@ -42,7 +42,7 @@
 
 <body data-offset="200" data-spy="scroll" data-target=".ownavigation">
     <!-- Loader -->
-    @include('frontend.partials.header')
+    <x-frontend.header />
 
     <div class="main-container">
 
@@ -50,7 +50,7 @@
 
     </div>
 
-    @include('frontend.partials.footer')
+    <x-frontend.footer />
 
     <!-- JQuery v1.12.4 -->
     <script src="{{asset('frontend')}}/assets/js/jquery-1.12.4.min.js"></script>

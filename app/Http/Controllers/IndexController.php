@@ -6,27 +6,19 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Slider;
 use App\Models\Sliderinstagram;
+use App\Models\Social;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $posts = Post::latest()->paginate(8);
-        $populars = Post::latest()->where('popular', true)->paginate(8);
         $featureds = Post::latest()->where('featured', true)->paginate(8);
         $trendings = Post::latest()->where('trending', true)->paginate(8);
-        $categories = Category::latest()->get();
-        $tags = Tag::latest()->get();
         $sliders = Slider::latest()->get();
-        $instagramsliders = Sliderinstagram::latest()->get();
-        return view('frontend.index', compact('posts', 'categories', 'tags', 'featureds', 'trendings', 'populars', 'sliders', 'instagramsliders'));
+        return view('frontend.index', compact('posts', 'featureds', 'trendings', 'sliders'));
     }
 
     /**
@@ -63,6 +55,8 @@ class IndexController extends Controller
         $categories = Category::latest()->paginate(8);
         $single_post_tags = Tag::latest()->paginate(4);
         $tags = Tag::latest()->get();
+        $instagramsliders = Sliderinstagram::latest()->get();
+        $socialslink = Social::all();
 
         $post = Post::where('slug',$slug)->first();
 
@@ -72,7 +66,7 @@ class IndexController extends Controller
         ->where('id', '!=', $post->id) // So you won't fetch same post
         ->paginate(4);
 
-        return view('frontend.details', compact('post', 'categories', 'tags', 'trendings', 'populars', 'single_post_tags', 'related'));
+        return view('frontend.details', compact('post', 'categories', 'tags', 'trendings', 'populars', 'single_post_tags', 'related', 'instagramsliders', 'socialslink'));
     }
 
     /**
@@ -115,7 +109,9 @@ class IndexController extends Controller
         $single_post_tags = Tag::latest()->paginate(4);
         $tags = Tag::latest()->get();
         $categorybyposts = Category::where('slug', $slug)->first();
-        return view('frontend.categorybypost', compact('categorybyposts', 'categories', 'tags','populars'));
+        $instagramsliders = Sliderinstagram::latest()->get();
+        $socialslink = Social::all();
+        return view('frontend.categorybypost', compact('categorybyposts', 'categories', 'tags','populars', 'socialslink', 'instagramsliders'));
     }
     public function tagbypost($slug)
     {
@@ -124,6 +120,8 @@ class IndexController extends Controller
         $single_post_tags = Tag::latest()->paginate(4);
         $tags = Tag::latest()->get();
         $tagbyposts = Tag::where('slug', $slug)->first();
-        return view('frontend.tagbypost', compact('tagbyposts', 'categories', 'tags','populars'));
+        $instagramsliders = Sliderinstagram::latest()->get();
+        $socialslink = Social::all();
+        return view('frontend.tagbypost', compact('tagbyposts', 'categories', 'tags','populars', 'socialslink', 'instagramsliders'));
     }
 }

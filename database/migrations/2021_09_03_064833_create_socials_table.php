@@ -16,13 +16,28 @@ class CreateSocialsTable extends Migration
         Schema::create('socials', function (Blueprint $table) {
             $table->id();
             $table->string('fb_link')->nullable();
+            $table->string('fb_link_icon')->nullable();
+
             $table->string('twtter_link')->nullable();
-            $table->string('linkedin_link')->nullable();
-            $table->string('youtube_link')->nullable();
+            $table->string('twtter_link_icon')->nullable();
+
             $table->string('instagram_link')->nullable();
+            $table->string('instagram_link_icon')->nullable();
+
+            $table->string('linkedin_link')->nullable();
+            $table->string('linkedin_link_icon')->nullable();
+
+            $table->string('youtube_link')->nullable();
+            $table->string('youtube_link_icon')->nullable();
+
             $table->string('googleplus_link')->nullable();
+            $table->string('googleplus_link_icon')->nullable();
+
             $table->string('pinterest_link')->nullable();
+            $table->string('pinterest_link_icon')->nullable();
+
             $table->string('vimeo_link')->nullable();
+            $table->string('vimeo_link_icon')->nullable();
             $table->timestamps();
         });
     }

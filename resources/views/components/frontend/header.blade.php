@@ -21,9 +21,11 @@
                 <div class="row">
                     <div class="col-lg-4 col-6">
                         <ul class="top-social">
-                            <li><a href="#" title="Facebook"><i class="ion-social-facebook-outline"></i></a></li>
-                            <li><a href="#" title="Twitter"><i class="ion-social-twitter-outline"></i></a></li>
-                            <li><a href="#" title="Instagram"><i class="ion-social-instagram-outline"></i></a></li>
+                            @foreach ($socialslink as $item)
+                                <li><a href="{{$item->fb_link}}" title="Facebook"> {!! html_entity_decode($item->fb_link_icon) !!}</a></li>
+                                <li><a href="{{$item->twtter_link}}" title="Twitter">{!! html_entity_decode($item->twtter_link_icon) !!}</a></li>
+                                <li><a href="{{$item->instagram_link}}" title="Instagram">{!! html_entity_decode($item->instagram_link_icon) !!}</a></li>
+                            @endforeach 
                         </ul>
                     </div>
                     <div class="col-lg-4 logo-block">
