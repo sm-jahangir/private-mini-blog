@@ -73,105 +73,80 @@
                     </div><!-- Related Post /- -->
                     <!-- Comment Area -->
                     <div class="comments-area">
-                        <h2 class="comments-title">3 Comments</h2>
+
+                    @if ($post->comments->count() <= 1)
+                        <h2 class="comments-title">{{ $post->comments->count() }} Comment</h2>
+                    @else
+                        <h2 class="comments-title">{{ $post->comments->count() }} Comments</h2>
+                    @endif
+
+
+
+
+
+                    @if ($post->comments->count() > 0)
                         <ol class="comment-list">
-                            <li
-                                class="comment byuser comment-author-admin bypostauthor even thread-even depth-1 parent">
-                                <div class="comment-body">
-                                    <footer class="comment-meta">
-                                        <div class="comment-author vcard">
-                                            <img alt="img" src="http://via.placeholder.com/70x70"
-                                                class="avatar avatar-72 photo" />
-                                            <b class="fn">Alice Chaptman</b>
-                                        </div>
-                                        <div class="comment-metadata">
-                                            <a href="#">10 hours ago</a>
-                                        </div>
-                                    </footer>
-                                    <div class="comment-content">
-                                        <p>Nor again is there anyone who loves or pursues or desires to obtain
-                                            pain of itself, because it is pain, but because occasionally
-                                            circumstances occur in which toil and pain can procure.</p>
-                                    </div>
-                                    <div class="reply">
-                                        <a rel="nofollow" class="comment-reply-link" href="#" title="Reply">Reply</a>
-                                    </div>
-                                </div>
-                                <ol class="children">
-                                    <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2 parent">
-                                        <div class="comment-body">
-                                            <footer class="comment-meta">
-                                                <div class="comment-author vcard">
-                                                    <img alt="img" src="http://via.placeholder.com/70x70"
-                                                        class="avatar avatar-72 photo" />
-                                                    <b class="fn">Droid Vader</b>
-                                                </div>
-                                                <div class="comment-metadata">
-                                                    <a href="#">8 hours ago</a>
-                                                </div>
-                                            </footer>
-                                            <div class="comment-content">
-                                                <p>No one rejects, dislikes, or avoids pleasure itself, because
-                                                    it is pleasure, but because those who do not know how to
-                                                    pursue pleasure rationally encounter consequences that are
-                                                    extremely painful. Nor again is there anyone who loves.</p>
+                            @foreach ($post->comments as $comment)
+                                <li
+                                    class="comment byuser comment-author-admin bypostauthor even thread-even depth-1 parent">
+                                    <div class="comment-body">
+                                        <footer class="comment-meta">
+                                            <div class="comment-author vcard">
+                                                <img alt="img" src="http://via.placeholder.com/80x80"
+                                                    class="avatar avatar-72 photo" />
+                                                <b class="fn">{{ $comment->user->name }}</b>
                                             </div>
-                                            <div class="reply">
-                                                <a rel="nofollow" class="comment-reply-link" href="#"
-                                                    title="Reply">Reply</a>
+                                            <div class="comment-metadata">
+                                                <a href="#">{{ $comment->created_at->diffForHumans() }}</a>
                                             </div>
+                                        </footer>
+                                        <div class="comment-content">
+                                            <p>{{ $comment->comment }}</p>
                                         </div>
-                                    </li>
-                                </ol>
-                            </li>
-                            <li
-                                class="comment byuser comment-author-admin bypostauthor even thread-odd thread-alt depth-1">
-                                <div class="comment-body">
-                                    <footer class="comment-meta">
-                                        <div class="comment-author vcard">
-                                            <img alt="img" src="http://via.placeholder.com/70x70"
-                                                class="avatar avatar-72 photo" />
-                                            <b class="fn">Giana Blankard</b>
-                                        </div>
-                                        <div class="comment-metadata">
-                                            <a href="#">16 hours ago</a>
-                                        </div>
-                                    </footer>
-                                    <div class="comment-content">
-                                        <p>But I must explain to you how all this mistaken idea of denouncing
-                                            pleasure and praising pain was born and I will give you a complete
-                                            account of the system, and expound the actual teachings of the great
-                                            explorer of the truth, the master-builder of human happiness.</p>
                                     </div>
-                                    <div class="reply">
-                                        <a rel="nofollow" class="comment-reply-link" href="#" title="Reply">Reply</a>
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+                            @endforeach
                         </ol><!-- comment-list /- -->
+                    @else
+                        <p>No Comment Yet, Be the First :)</p>
+                    @endif
                         <!-- Comment Form -->
                         <div class="comment-respond">
                             <h2 class="comment-reply-title">Leave a Reply</h2>
-                            <form method="post" class="comment-form">
-                                <p class="comment-form-author">
-                                    <input id="author" name="author" placeholder="Name" size="30" maxlength="245"
-                                        required="required" type="text" />
-                                </p>
-                                <p class="comment-form-email">
-                                    <input id="email" name="email" placeholder="Email" required="required"
-                                        type="email" />
-                                </p>
-                                <p class="comment-form-url">
-                                    <input id="url" name="url" placeholder="Website" required="required" type="url" />
-                                </p>
-                                <p class="comment-form-comment">
-                                    <textarea id="comment" name="comment" placeholder="Enter your comment here..."
-                                        rows="8" required="required"></textarea>
-                                </p>
-                                <p class="form-submit">
-                                    <input name="submit" class="submit" value="Post Comment" type="submit" />
-                                </p>
-                            </form>
+
+                            @guest
+                                <form method="post" class="comment-form">
+                                    <p class="comment-form-author">
+                                        <input id="author" name="author" placeholder="Name" size="30" maxlength="245"
+                                            required="required" type="text" />
+                                    </p>
+                                    <p class="comment-form-email">
+                                        <input id="email" name="email" placeholder="Email" required="required"
+                                            type="email" />
+                                    </p>
+                                    <p class="comment-form-url">
+                                        <input id="url" name="url" placeholder="Website" required="required" type="url" />
+                                    </p>
+                                    <p class="comment-form-comment">
+                                        <textarea id="comment" name="comment" placeholder="Enter your comment here..."
+                                            rows="8" required="required"></textarea>
+                                    </p>
+                                    <p class="form-submit">
+                                        <input name="submit" class="submit" value="Post Comment" type="submit" />
+                                    </p>
+                                </form>
+                            @else
+                                <form method="post" action="{{ route('comment.store', $post->id) }}" class="comment-form">
+                                    @csrf
+                                    <p class="comment-form-comment">
+                                        <textarea id="comment" name="comment" placeholder="Enter your comment here..."
+                                            rows="8" required="required"></textarea>
+                                    </p>
+                                    <p class="form-submit">
+                                        <input name="submit" class="submit" value="Post Comment" type="submit" />
+                                    </p>
+                                </form>
+                            @endguest
                         </div><!-- Comment Form /- -->
                     </div><!-- Comment Area /- -->
                 </div><!-- Content Area /- -->
