@@ -29,7 +29,13 @@
                         </ul>
                     </div>
                     <div class="col-lg-4 logo-block">
-                        <a href="index.html" title="Logo">Mini :: Blog</a>
+                        @if ($logos)
+                        <a href="{{url('/')}}" title="Logo">
+                            @foreach ($logos as $logo)
+                            <img style="max-width: 134px; max-height:58px;" src="{{asset('images/logo'.'/'.$logo->logo)}}" alt="">
+                            @endforeach
+                        </a>
+                        @endif
                     </div>
                     <div class="col-lg-4 col-6">
                         <ul class="top-right user-info">
@@ -75,18 +81,15 @@
                         <li>
                             <a class="nav-link" title="Home" href="{{url('/')}}">Home</a>
                         </li>
+                        @foreach ($pages as $page)
                         <li>
-                            <a class="nav-link" title="Posts" href="#">Posts</a>
+                            <a class="nav-link" title="Posts" href="{{$page->id}}">{{$page->title}}</a>
                         </li>
+                        @endforeach
                         <li>
-                            <a class="nav-link" title="Pages" href="#">Pages</a>
+                            <a class="nav-link" title="About Us" href="{{url('about-us')}}">About Us</a>
                         </li>
-                        <li><a class="nav-link" title="Features" href="#">Features</a></li>
-                        <li><a class="nav-link" title="Archives" href="#">Archives</a></li>
-                        <li>
-                            <a class="nav-link" title="About Us" href="aboutus.html">About Us</a>
-                        </li>
-                        <li><a class="nav-link" title="Contact" href="contact-us.html">Contact</a></li>
+                        <li><a class="nav-link" title="Contact" href="{{url('contact-us')}}">Contact</a></li>
                     </ul>
                 </div>
                 <div id="loginpanel-4" class="desktop-hide">

@@ -2,8 +2,10 @@
 
 namespace App\View\Components\Frontend;
 
+use App\Models\Page;
 use App\Models\Social;
 use Illuminate\View\Component;
+use Illuminate\Support\Facades\DB;
 
 class Header extends Component
 {
@@ -24,7 +26,9 @@ class Header extends Component
      */
     public function render()
     {
+        $logos = DB::table('logos')->where('id', 1)->get();
         $socialslink = Social::all();
-        return view('components.frontend.header', compact('socialslink'));
+        $pages = Page::all();
+        return view('components.frontend.header', compact('socialslink', 'logos', 'pages'));
     }
 }
