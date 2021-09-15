@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Admin\TagController;
@@ -24,6 +25,7 @@ Route::get('/blog/{slug}', [IndexController::class, 'show'])->name('index.show')
 Route::get('/category/{slug}', [IndexController::class, 'categorybypost'])->name('index.categorybypost');
 Route::get('/tag/{slug}', [IndexController::class, 'tagbypost'])->name('index.tagbypost');
 Route::post('comment/{post}',[CommentController::class, 'store'])->name('comment.store');
+Route::get('search', [SearchController::class, 'search'])->name('blog.search');
 
 Auth::routes();
 

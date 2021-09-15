@@ -101,9 +101,9 @@
     <!-- Search Box -->
     <div class="search-box collapse" id="search-box">
         <div class="container">
-            <form>
+            <form action="{{ route('blog.search') }}" method="GET">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search..." required>
+                    <input type="text" class="form-control" name="query" placeholder="Search..." required>
                     <span class="input-group-btn">
                         <button class="btn btn-secondary" type="submit"><i class="pe-7s-search"></i></button>
                     </span>
