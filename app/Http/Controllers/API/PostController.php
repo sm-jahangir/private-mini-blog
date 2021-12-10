@@ -4,14 +4,21 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Tag;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Social;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Sliderinstagram;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserCollection;
 
 class PostController extends Controller
 {
+    function users()
+    {
+        $users = User::paginate(10);
+        return response()->json($users);
+    }
     /**
      * Display a listing of the resource.
      *

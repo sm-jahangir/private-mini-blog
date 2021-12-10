@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/posts', [PostController::class, 'index']);
 
 // For Single Post. Post by slug 
-Route::get('/blog/{slug}', [PostController::class, 'show']);
+Route::get('/posts/{slug}', [PostController::class, 'show']);
 
 // For Popular Post
 Route::get('/posts/popular', [PostController::class, 'popular']);
@@ -26,3 +26,6 @@ Route::get('/tag', [PostController::class, 'tag']);
 
 // For Tag wise Post
 Route::get('/tag/{slug}', [PostController::class, 'tagbypost']);
+
+// For Users
+Route::get('/users', [PostController::class, 'users']);

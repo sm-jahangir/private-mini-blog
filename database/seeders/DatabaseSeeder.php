@@ -13,8 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
         $this->call(RolePermissionsSeeder::class);
+        \App\Models\User::factory(500)->create();
         $this->call(SociallinkSeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(TagSeeder::class);
