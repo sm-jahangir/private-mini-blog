@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\PostController;
+use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,5 @@ Route::get('/tag', [PostController::class, 'tag']);
 Route::get('/tag/{slug}', [PostController::class, 'tagbypost']);
 
 // For Users
-Route::get('/users', [PostController::class, 'users']);
+Route::get('/users', [UserController::class, 'index']);
+Route::get('search/user/{field}/{query}', [UserController::class, 'search']);
